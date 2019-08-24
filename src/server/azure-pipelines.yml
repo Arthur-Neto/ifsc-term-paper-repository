@@ -14,10 +14,14 @@ pool:
 
 steps:
 - task: DotNetCoreInstaller@0
-  displayName: 'Restore NuGet Packages'
+  displayName: Installing .NET Core SDK
   inputs:
     version: '2.2.401'
-- script: dotnet restore
+- task: DotNetCoreCLI@2
+  displayName: Restore NuGet Packages
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
 - task: DotNetCoreCLI@2
   displayName: Build Release
   inputs:
