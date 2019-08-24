@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
 import {
     FeatureExampleAddCommand,
     FeatureExampleUpdateCommand,
@@ -18,18 +19,11 @@ import {
 export class FeatureExampleService {
 
     private apiEndPoint: string;
-    private httpOptions: any;
 
     public constructor(
         private http: HttpClient,
     ) {
-        this.apiEndPoint = 'http://localhost:65264/api/feature-example';
-
-        this.httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            })
-        };
+        this.apiEndPoint = `${ environment.apiUrl }/api/feature-example`;
     }
 
     public getAll(): Observable<IFeatureExample[]> {

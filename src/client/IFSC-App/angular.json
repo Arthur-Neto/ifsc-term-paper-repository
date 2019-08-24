@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "Template-App": {
+        "IFSC-App": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -12,12 +12,12 @@
             },
             "root": "",
             "sourceRoot": "src",
-            "prefix": "app",
+            "prefix": "ifsc",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/Template-App",
+                        "outputPath": "dist/IFSC-App",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "Template-App:build"
+                        "browserTarget": "IFSC-App:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "Template-App:build:production"
+                            "browserTarget": "IFSC-App:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "Template-App:build"
+                        "browserTarget": "IFSC-App:build"
                     }
                 },
                 "test": {
@@ -115,16 +115,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "Template-App:serve"
+                        "devServerTarget": "IFSC-App:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "Template-App:serve:production"
+                            "devServerTarget": "IFSC-App:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "Template-App"
+    "defaultProject": "IFSC-App"
 }
