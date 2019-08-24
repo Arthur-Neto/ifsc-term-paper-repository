@@ -41,7 +41,7 @@ steps:
     command: Build an image
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
-    dockerFile: '**/Dockerfile'
+    dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
     imageNamesPath: 
     restartPolicy: always
@@ -51,7 +51,7 @@ steps:
     command: Push an image
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
-    dockerFile: '**/Dockerfile'
+    dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
     imageNamesPath: 
     restartPolicy: always
