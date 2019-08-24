@@ -2,6 +2,6 @@
 {
     public class GenericRepositoryTests
     {
-        // Not testable yet - Effort for EFCore still not working
+        // Not testable yet - Effort for EFCore still not working A
     }
 }
