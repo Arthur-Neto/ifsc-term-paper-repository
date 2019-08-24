@@ -43,7 +43,7 @@ steps:
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
-    imageNamesPath: 
+    imageNamesPath: '**/server/'
     restartPolicy: always
 - task: Docker@1
   displayName: Push a Docker Image
@@ -53,5 +53,5 @@ steps:
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
-    imageNamesPath: 
+    imageNamesPath: '**/server/'
     restartPolicy: always
