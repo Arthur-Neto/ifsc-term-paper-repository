@@ -14,16 +14,18 @@ pool:
 
 steps:
 - task: DotNetCoreInstaller@0
+  displayName: 'Restore NuGet Packages'
   inputs:
     version: '2.2.401'
 - script: dotnet restore
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: Build Release
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration Release'
 - task: DotNetCoreCLI@2
+  displayName: Running Tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
