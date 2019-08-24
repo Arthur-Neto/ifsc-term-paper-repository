@@ -42,7 +42,7 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
-    imageName: $(image-name)
+    imageName: 'anchev/web.api:$(build.buildNumber)'
     imageNamesPath:
     restartPolicy: always
 - task: Docker@1
@@ -52,6 +52,6 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
-    imageName: $(image-name)
+    imageName: 'anchev/web.api:$(build.buildNumber)'
     imageNamesPath:
     restartPolicy: always
