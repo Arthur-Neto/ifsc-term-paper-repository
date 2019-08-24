@@ -11,7 +11,7 @@ pool:
 
  variables:
   buildConfiguration: 'Release'
-  image-name: 'web.api:$(build.buildNumber)'
+  imageName: anchev/web.api:$(build.buildNumber)
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -42,7 +42,7 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
-    imageName: 'anchev/web.api:$(build.buildNumber)'
+    imageName: $(imageName)
     imageNamesPath:
     restartPolicy: always
 - task: Docker@1
@@ -52,6 +52,6 @@ steps:
     containerregistrytype: Container Registry
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
-    imageName: 'anchev/web.api:$(build.buildNumber)'
+    imageName: $(imageName)
     imageNamesPath:
     restartPolicy: always
