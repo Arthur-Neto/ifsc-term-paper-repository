@@ -10,25 +10,9 @@ pool:
  vmImage: 'ubuntu-latest'
 
  variables:
-  buildConfiguration: 'Release'
   imageName: 'anchev/web.api:$(build.buildNumber)'
 
 steps:
-- task: DotNetCoreInstaller@0
-  displayName: Installing .NET Core SDK
-  inputs:
-    version: '2.2.401'
-- task: DotNetCoreCLI@2
-  displayName: Restore NuGet Packages
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-- task: DotNetCoreCLI@2
-  displayName: Build Release
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration Release'
 - task: DotNetCoreCLI@2
   displayName: Running Unit Tests
   inputs:
@@ -43,7 +27,7 @@ steps:
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
-    imageNamesPath: '**/server/'
+    imageNamesPath:
     restartPolicy: always
 - task: Docker@1
   displayName: Push a Docker Image
@@ -53,5 +37,5 @@ steps:
     dockerRegistryEndpoint: DockerHub
     dockerFile: '**/server/**/Dockerfile'
     imageName: $(imageName)
-    imageNamesPath: '**/server/'
+    imageNamesPath:
     restartPolicy: always
