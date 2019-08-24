@@ -8,7 +8,7 @@ variables:
   imageName: 'dev/web.api:$(build.buildNumber)'
 
 steps:
-- script: dotnet test ifsc.tcc.Portal.Tests/ifsc.tcc.Portal.Tests.csproj --logger trx
+- script: dotnet test src/server/ifsc.tcc.Portal.Tests/ifsc.tcc.Portal.Tests.csproj --logger trx
   displayName: Run Unit Tests
 - task: PublishTestResults@2
   condition: succeededOrFailed()
