@@ -11,6 +11,7 @@ pool:
 
  variables:
   buildConfiguration: 'Release'
+  imageName: 'dev/web.api:$(build.buildNumber)'
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -34,3 +35,23 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+- task: Docker@1
+  displayName: Build a Docker Image
+  inputs:
+    command: Build an image
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: DockerHub
+    dockerFile: Dockerfile
+    imageName: $(imageName)
+    imageNamesPath: 
+    restartPolicy: always
+- task: Docker@1
+  displayName: Push a Docker Image
+  inputs:
+    command: Push an image
+    containerregistrytype: Container Registry
+    dockerRegistryEndpoint: DockerHub
+    dockerFile: Dockerfile
+    imageName: $(imageName)
+    imageNamesPath: 
+    restartPolicy: always
