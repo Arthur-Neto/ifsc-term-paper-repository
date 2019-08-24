@@ -11,7 +11,7 @@ pool:
 
  variables:
   buildConfiguration: 'Release'
-  imageName: 'dev/web.api:$(build.buildNumber)'
+  imageName: 'anchev/web.api:$(build.buildNumber)'
 
 steps:
 - task: DotNetCoreInstaller@0
