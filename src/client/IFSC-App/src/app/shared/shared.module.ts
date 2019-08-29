@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { MaterialModule } from '../material.module';
-import { SpinnerModule } from './spinner-component/spinner.module';
+import { MaterialModule } from './material.module';
+import { IfscNavbarModule } from './ifsc-navbar/ifsc-navbar.module';
 
 @NgModule({
     declarations: [],
@@ -11,7 +11,7 @@ import { SpinnerModule } from './spinner-component/spinner.module';
     ],
     exports: [
         MaterialModule,
-        SpinnerModule,
+        IfscNavbarModule,
     ],
 })
 export class SharedModule { }

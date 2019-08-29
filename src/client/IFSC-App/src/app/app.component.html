@@ -1,10 +1,9 @@
-<div>
-    <h1>
-        {{ title }}
-    </h1>
-</div>
+<header class="header">
+    <ifsc-navbar></ifsc-navbar>
+</header>
 
-<button mat-raised-button color="primary" routerLink="">Home</button>
-<button mat-raised-button color="primary" routerLink="/feature-example">Feature-Example</button>
+<section class="content">
+    <router-outlet></router-outlet>
+</section>
 
-<router-outlet></router-outlet>
+<footer class="footer"></footer>
