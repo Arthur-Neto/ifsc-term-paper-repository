@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'ifsc-navbar',
     templateUrl: './ifsc-navbar.component.html',
     styleUrls: ['./ifsc-navbar.component.scss']
 })
-export class IfscNavbarComponent implements OnInit {
+export class IfscNavbarComponent {
 
-    constructor() { }
+    constructor(private router: Router) { }
 
-    ngOnInit() { }
+    public onClick() {
+        this.router.navigateByUrl('');
+    }
 }

@@ -5,4 +5,16 @@
     height: 35px;
     min-height: 35px;
     z-index: 2;
+
+    .mat-toolbar-row {
+        overflow: hidden;
+    }
+
+    .mat-icon {
+        transform: scale(4.5);
+        top: 5px;
+        left: 50%;
+        position: fixed;
+        overflow: hidden;
+    }
 }

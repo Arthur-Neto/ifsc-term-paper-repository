@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material.module';
+import { NgModule } from '@angular/core';
+
+import { MaterialModule } from '../material/material.module';
 import { IfscNavbarComponent } from './ifsc-navbar.component';
 
 @NgModule({

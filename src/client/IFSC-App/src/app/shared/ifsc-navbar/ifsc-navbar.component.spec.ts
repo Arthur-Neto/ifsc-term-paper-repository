@@ -1,4 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+    async,
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
 
 import { IfscNavbarComponent } from './ifsc-navbar.component';
 
