@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MaterialModule } from '../material.module';
-import { SpinnerModule } from './spinner-component/spinner.module';
+import { IfscNavbarModule } from './ifsc-navbar/ifsc-navbar.module';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
     declarations: [],
@@ -11,7 +13,14 @@ import { SpinnerModule } from './spinner-component/spinner.module';
     ],
     exports: [
         MaterialModule,
-        SpinnerModule,
+        IfscNavbarModule,
     ],
 })
-export class SharedModule { }
+export class SharedModule {
+    constructor(
+        private matIconRegistry: MatIconRegistry,
+        private domSanitizer: DomSanitizer
+    ) {
+        this.matIconRegistry.addSvgIcon('ifsc-logo', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/ifsc-logo.svg'));
+    }
+}
