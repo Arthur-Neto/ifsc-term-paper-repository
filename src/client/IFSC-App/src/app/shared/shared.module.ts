@@ -4,6 +4,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { IfscNavbarModule } from './ifsc-navbar/ifsc-navbar.module';
+import { IfscSearchbarModule } from './ifsc-searchbar/ifsc-searchbar.module';
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MaterialModule } from './material/material.module';
     exports: [
         MaterialModule,
         IfscNavbarModule,
+        IfscSearchbarModule,
     ],
 })
 export class SharedModule {
