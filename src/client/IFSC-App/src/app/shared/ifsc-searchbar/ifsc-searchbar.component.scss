@@ -1,14 +1,31 @@
 .mat-form-field {
     width: 35%;
     position: fixed;
-    top: 10%;
+    top: 0;
     margin: 0;
+    margin-top: 5%;
     padding: 0;
     left: calc(50% - (35% / 2));
 }
 
 hr {
-    position: relative;
     width: 100%;
-    top: 300px;
+}
+
+.ifsc-searchbar__actions {
+    position: relative;
+    margin-top: 10%;
+    padding-bottom: 2px;
+    float: right;
+
+    .mat-button {
+        margin-right: 1px;
+        padding: 2px;
+        line-height: 26px;
+
+        &::ng-deep .mat-button-focus-overlay {
+            background: transparent;
+            background-color: transparent;
+        }
+    }
 }
