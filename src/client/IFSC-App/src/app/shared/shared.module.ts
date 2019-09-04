@@ -24,5 +24,7 @@ export class SharedModule {
         private domSanitizer: DomSanitizer
     ) {
         this.matIconRegistry.addSvgIcon('ifsc-logo', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/ifsc-logo.svg'));
+        this.matIconRegistry.addSvgIcon('add', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/add.svg'));
+        this.matIconRegistry.addSvgIcon('delete', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/delete.svg'));
     }
 }
