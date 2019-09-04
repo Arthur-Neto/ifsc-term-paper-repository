@@ -13,7 +13,7 @@
     .mat-icon {
         transform: scale(4.5);
         top: 5px;
-        left: 50%;
+        left: calc(50% - 24px);
         position: fixed;
         overflow: hidden;
     }
