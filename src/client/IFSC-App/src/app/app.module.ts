@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FeatureExampleModule } from './features/feature-example/feature-example.module';
+import { HomeModule } from './features/home/home.module';
 import { MaterialModule } from './shared/material/material.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -25,8 +25,8 @@ import { SharedModule } from './shared/shared.module';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        FeatureExampleModule,
         SharedModule,
+        HomeModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
