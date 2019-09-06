@@ -5,16 +5,22 @@ import {
 } from '@angular/router';
 
 import { HomeComponent } from './features/home/home.component';
+import { TermPaperAddComponent } from './features/term-paper/term-paper-add/term-paper-add.component';
 
 const routes: Routes = [
     {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
     },
     {
-        path: 'home', component: HomeComponent,
+        path: 'home',
+        component: HomeComponent,
         loadChildren: () => import('./features/home/home.module').then((mod) => mod.HomeModule)
+    },
+    {
+        path: 'term-paper',
+        loadChildren: () => import('./features/term-paper/term-paper.module').then((mod) => mod.TermPaperModule)
     },
 ];
 

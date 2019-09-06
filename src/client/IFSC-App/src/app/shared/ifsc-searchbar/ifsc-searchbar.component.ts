@@ -1,7 +1,12 @@
 import {
     Component,
+    Input,
     OnInit,
 } from '@angular/core';
+import {
+    ActivatedRoute,
+    Router,
+} from '@angular/router';
 
 @Component({
     selector: 'ifsc-searchbar',
@@ -10,7 +15,16 @@ import {
 })
 export class IfscSearchbarComponent implements OnInit {
 
-    constructor() { }
+    @Input() newRouteUrl: string;
+
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+    ) { }
 
     ngOnInit() { }
+
+    public onNew() {
+        this.router.navigate([this.newRouteUrl]);
+    }
 }
