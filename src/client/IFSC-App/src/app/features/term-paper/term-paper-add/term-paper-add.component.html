@@ -1,1 +1,124 @@
-<p>term-paper-add works!</p>
+<h1>Cadastro de trabalho</h1>
+
+<form
+    [formGroup]="formGroup">
+
+    <div class="container">
+        <section class="row">
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="Digite o título do trabalho" formControlName="title" required>
+
+                    <mat-error *ngIf="f.title.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.title.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                    <mat-error *ngIf="f.title.errors?.maxlength">{{resources.validators.shouldntContainMoreThanOneHundredChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="Digite o nome da área do curso" formControlName="area" required>
+
+                    <mat-error *ngIf="f.area.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.area.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                    <mat-error *ngIf="f.area.errors?.maxlength">{{resources.validators.shouldntContainMoreThanFiftyChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="Digite o nome do curso" formControlName="course" required>
+
+                    <mat-error *ngIf="f.course.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.course.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                    <mat-error *ngIf="f.course.errors?.maxlength">{{resources.validators.shouldntContainMoreThanOneHundredChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Escolha a data de inicio do trabalho"
+                        formControlName="dateBegin"
+                        required
+                        [min]="MIN_DATE"
+                        [max]="MAX_DATE"
+                        [matDatepicker]="pickerBegin">
+                    <mat-datepicker-toggle matSuffix [for]="pickerBegin"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerBegin></mat-datepicker>
+
+                    <mat-error *ngIf="f.dateBegin.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Escolha a data que foi entregue o trabalho"
+                        formControlName="dateEnd"
+                        required
+                        [min]="MIN_DATE"
+                        [max]="MAX_DATE"
+                        [matDatepicker]="pickerEnd">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEnd></mat-datepicker>
+
+                    <mat-error *ngIf="f.dateEnd.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                </mat-form-field>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="Digite o nome do orientador" formControlName="advisor" required>
+
+                    <mat-error *ngIf="f.advisor.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.advisor.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                    <mat-error *ngIf="f.advisor.errors?.maxlength">{{resources.validators.shouldntContainMoreThanFiftyChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="Digite o nome do orientando" formControlName="student" required>
+
+                    <mat-error *ngIf="f.student.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.student.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                    <mat-error *ngIf="f.student.errors?.maxlength">{{resources.validators.shouldntContainMoreThanFiftyChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <mat-chip-list #chipList>
+                        <mat-chip
+                            *ngFor="let keyword of keywords"
+                            [selectable]="true"
+                            [removable]="true"
+                            (removed)="keywordRemove(keyword)">
+                            {{keyword}}
+                            <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                            placeholder="{{resources.labels.keywordSelection}}"
+                            formControlName="keywords"
+                            #keywordInput
+                            [matAutocomplete]="auto"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="true"
+                            (matChipInputTokenEnd)="keywordAdd($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="keywordSelected($event)">
+                        <mat-option *ngFor="let keyword of filteredKeywords | async" [value]="keyword">
+                            {{keyword}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </section>
+    </div>
+</form>

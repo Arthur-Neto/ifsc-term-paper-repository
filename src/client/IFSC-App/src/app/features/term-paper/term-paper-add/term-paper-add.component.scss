@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.row {
+    margin: 5%;
+    margin-top: 0;
+    text-align: left;
+    flex: 1;
+}
+
+.item {
+    width: 100%;
+
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+h1 {
+    margin-left: 1%;
+    margin-top: 5%;
+}
