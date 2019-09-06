@@ -4,7 +4,10 @@
 </mat-form-field>
 
 <div class="ifsc-searchbar__actions">
-    <button mat-button disableRipple>
+    <button
+        mat-button
+        disableRipple
+        (click)="onNew()">
         <mat-icon svgIcon="add"></mat-icon>
         Novo
     </button>

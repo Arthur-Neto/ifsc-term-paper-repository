@@ -1,0 +1,11 @@
+{
+    "validators": {
+        "thisFieldIsRequired": "Este campo é obrigatório",
+        "mustContainAtLeastFourChar": "Deve conter pelo menos 4 caracteres",
+        "shouldntContainMoreThanOneHundredChar": "Não deve ter mais que 100 caracteres",
+        "shouldntContainMoreThanFiftyChar": "Não deve ter mais que 50 caracteres"
+    },
+    "labels": {
+        "keywordSelection": "Seleção de palavras-chaves"
+    }
+}
