@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
 using ifsc.tcc.Portal.Domain.CommonModule;
 using ifsc.tcc.Portal.Domain.CourseModule;
@@ -18,8 +17,8 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
 
         public virtual Area Area { get; private set; }
         public virtual Course Course { get; private set; }
-        public virtual IEnumerable<Keyword> Keywords { get; private set; }
-        public virtual IEnumerable<Advisor> Advisors { get; private set; }
+        public virtual IEnumerable<KeywordTermPaper> KeywordTermPapers { get; private set; }
+        public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
 
         private TermPaper()
         { }
