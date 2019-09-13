@@ -5,6 +5,7 @@
 
 .row {
     margin: 5%;
+    margin-right: 0px;
     margin-top: 0;
     text-align: left;
     flex: 1;
@@ -14,11 +15,50 @@
     width: 100%;
 
     .mat-form-field {
-        width: 100%;
+        width: 90%;
+    }
+
+    button {
+        padding: 0px;
+        transform: scale(.8, .8);
+        font-size: 125%;
     }
 }
 
 h1 {
-    margin-left: 1%;
+    margin-left: 3%;
     margin-top: 5%;
+    font-size: 32px;
+}
+
+.submit-buttons {
+    position: relative;
+    margin-left: 5%;
+    margin-top: 12%;
+
+    button {
+        margin-right: 15px;
+    }
+}
+
+.file-select {
+    margin: 5%;
+    margin-top: 0;
+
+    .file-upload {
+        display: none;
+    }
+
+    .mat-form-field {
+        width: 100%;
+    }
+
+    .mat-error {
+        margin-top: 10px;
+    }
+
+    label {
+        margin-left: 2%;
+        font-size: 18px;
+    }
 }
