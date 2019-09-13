@@ -7,14 +7,14 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
     public class TermPaperAddCommand
     {
         public string Title { get; set; }
-        public string Area { get; set; }
-        public string Course { get; set; }
+        public int AreaID { get; set; }
+        public int CourseID { get; set; }
         public DateTime DateBegin { get; set; }
         public DateTime DateEnd { get; set; }
-        public string Advisor { get; set; }
-        public string CoAdvisor { get; set; }
-        public string Student1 { get; set; }
-        public string Student2 { get; set; }
+        public int AdvisorID { get; set; }
+        public int CoAdvisorID { get; set; }
+        public int StudentAID { get; set; }
+        public int StudentBID { get; set; }
         public IEnumerable<string> Keywords { get; set; }
         public string File { get; set; }
     }
@@ -27,13 +27,11 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
                 .NotEmpty()
                 .Length(4, 100);
 
-            RuleFor(x => x.Area)
-                .NotEmpty()
-                .Length(4, 50);
+            RuleFor(x => x.AreaID)
+                .NotEmpty();
 
-            RuleFor(x => x.Course)
-                .NotEmpty()
-                .Length(4, 100);
+            RuleFor(x => x.CourseID)
+                .NotEmpty();
 
             RuleFor(x => x.DateBegin)
                 .NotEmpty();
@@ -41,23 +39,19 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
             RuleFor(x => x.DateEnd)
                 .NotEmpty();
 
-            RuleFor(x => x.Advisor)
-                .NotEmpty()
-                .Length(4, 50);
+            RuleFor(x => x.AdvisorID)
+                .NotEmpty();
 
-            RuleFor(x => x.CoAdvisor)
+            RuleFor(x => x.CoAdvisorID)
                 .NotEmpty()
-                .Length(4, 50)
-                .When(x => x.CoAdvisor.Length > 0);
+                .When(x => x.CoAdvisorID > 0);
 
-            RuleFor(x => x.Student1)
-                .NotEmpty()
-                .Length(4, 50);
+            RuleFor(x => x.StudentAID)
+                .NotEmpty();
 
-            RuleFor(x => x.Student2)
+            RuleFor(x => x.StudentBID)
                 .NotEmpty()
-                .Length(4, 50)
-                .When(x => x.Student2.Length > 0);
+                .When(x => x.StudentBID > 0);
 
             RuleFor(x => x.Keywords)
                 .NotEmpty();

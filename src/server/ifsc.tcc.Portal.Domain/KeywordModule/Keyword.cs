@@ -11,5 +11,10 @@ namespace ifsc.tcc.Portal.Domain.KeywordModule
 
         private Keyword()
         { }
+
+        public Keyword(string value)
+        {
+            Value = value;
+        }
     }
 }

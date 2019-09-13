@@ -3,6 +3,7 @@
 namespace ifsc.tcc.Portal.Domain.KeywordModule
 {
     public interface IKeywordRepository
-        : IGetRepository<Keyword>
+        : IGetRepository<Keyword>,
+        IAddRepository<Keyword>
     { }
 }

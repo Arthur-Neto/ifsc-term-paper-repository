@@ -12,5 +12,10 @@ namespace ifsc.tcc.Portal.Domain.KeywordModule
 
         private KeywordTermPaper()
         { }
+
+        public KeywordTermPaper(Keyword keyword)
+        {
+            Keyword = keyword;
+        }
     }
 }

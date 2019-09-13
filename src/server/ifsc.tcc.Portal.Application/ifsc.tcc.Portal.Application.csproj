@@ -15,8 +15,4 @@
     <ProjectReference Include="..\ifsc.tcc.Portal.Infra.Crosscutting\ifsc.tcc.Portal.Infra.Data.Crosscutting.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TermPaperModule\Profiles\" />
-  </ItemGroup>
-
 </Project>

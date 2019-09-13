@@ -22,5 +22,23 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
 
         private TermPaper()
         { }
+
+        public TermPaper(
+            string title,
+            DateTime dateBegin,
+            DateTime dateEnd,
+            Area area,
+            Course course,
+            IEnumerable<KeywordTermPaper> keywordTermPapers,
+            IEnumerable<TermPaperAdvisor> termPaperAdvisors)
+        {
+            Title = title;
+            DateBegin = dateBegin;
+            DateEnd = dateEnd;
+            Area = area;
+            Course = course;
+            KeywordTermPapers = keywordTermPapers;
+            TermPaperAdvisors = termPaperAdvisors;
+        }
     }
 }
