@@ -18,6 +18,7 @@ import {
     MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,35 +37,50 @@ export class TermPaperAddComponent implements OnInit {
     public readonly resources = resources;
     public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-    public formGroup: FormGroup;
+    public termPaper: FormGroup;
+    public hasCoAdvisor = false;
+    public hasTwoStudents = false;
+    public file: any;
+    public fileName: string;
+    public fileUploadedShowError = false;
+    public keywords: string[] = [];
+    public allKeywords: string[] = ['keyword1', 'keyword2', 'keyword3'];
     public filteredKeywords: Observable<string[]>;
-    public keywords: string[] = ['CallFromBackend'];
-    public allKeywords: string[] = ['Keyword1', 'Keyword2', 'Keyword3'];
 
-    get f() { return this.formGroup.controls; }
+    get f() { return this.termPaper.controls; }
 
     @ViewChild('keywordInput', { static: false }) keywordInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
     constructor(
+        private router: Router,
         private fb: FormBuilder
     ) { }
 
     ngOnInit() {
-        this.formGroup = this.fb.group({
+        this.termPaper = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
             area: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
             course: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
             dateBegin: ['', [Validators.required]],
             dateEnd: ['', [Validators.required]],
             advisor: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-            student: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+            coAdvisor: ['', [Validators.minLength(4), Validators.maxLength(50)]],
+            student1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+            student2: ['', [Validators.minLength(4), Validators.maxLength(50)]],
             keywords: [''],
+            file: ['', [Validators.required]],
         });
 
         this.filteredKeywords =
             this.f.keywords.valueChanges
-                .pipe(map((keyword: string | null) => keyword ? this.filterKeywords(keyword) : this.allKeywords.slice()));
+                .pipe(map((keyword: string | null) => this.filterKeywords(keyword)));
+    }
+
+    public fileChange(file: any) {
+        this.file = file.target.files[0] ? file.target.files[0] : this.file;
+        this.fileName = this.file.name;
+        this.fileUploadedShowError = false;
     }
 
     public keywordAdd(event: MatChipInputEvent): void {
@@ -80,7 +96,7 @@ export class TermPaperAddComponent implements OnInit {
                 input.value = '';
             }
 
-            this.f.keywords.setValue(null);
+            this.f.keywords.setValue(this.keywords);
         }
     }
 
@@ -93,14 +109,72 @@ export class TermPaperAddComponent implements OnInit {
     }
 
     public keywordSelected(event: MatAutocompleteSelectedEvent): void {
-        this.keywords.push(event.option.viewValue);
-        this.keywordInput.nativeElement.value = '';
-        this.f.keywords.setValue(null);
+        if (!event.option) { return; }
+        const value = event.option.value;
+
+        if ((value || '').trim()) {
+            this.keywords.push(value.trim());
+            this.f.keywords.setValue('');
+        }
     }
 
-    private filterKeywords(value: string): string[] {
-        const filterValue = value.toLowerCase();
+    public onAddCoAdvisor() {
+        this.f.coAdvisor.enable();
+        this.hasCoAdvisor = true;
+    }
 
-        return this.allKeywords.filter((keyword) => keyword.toLowerCase().indexOf(filterValue) === 0);
+    public onRemoveCoAdvisor() {
+        this.hasCoAdvisor = false;
+        this.f.coAdvisor.disable();
+    }
+
+    public onAddStudent() {
+        this.f.student2.enable();
+        this.hasTwoStudents = true;
+    }
+
+    public onRemoveStudent() {
+        this.hasTwoStudents = false;
+        this.f.student2.disable();
+    }
+
+    public onSubmit(termPaper: FormGroup) {
+        if (!this.file || !(this.file.type === 'application/pdf')) {
+            this.fileUploadedShowError = true;
+            return;
+        } else {
+            this.fileUploadedShowError = false;
+        }
+
+        const command = termPaper.value;
+        this.fileToBase64(this.file)
+            .pipe()
+            .subscribe((result) => {
+                command.file = result;
+            });
+
+        console.log(command.file);
+        console.log(command);
+    }
+
+    public onReset() {
+        this.router.navigateByUrl('');
+    }
+
+    private fileToBase64 = (file: any) => new Observable((observer) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            observer.next(reader.result);
+        };
+        reader.onerror = (error) => {
+            observer.error(error);
+        };
+    })
+
+    private filterKeywords(value: string): string[] {
+        const matches = value ? this.allKeywords.filter((s) => new RegExp(`^${ value }`, 'gi').test(s)) : this.allKeywords;
+
+        return matches.filter((x) => !this.keywords.find((y) => y === x));
     }
 }
