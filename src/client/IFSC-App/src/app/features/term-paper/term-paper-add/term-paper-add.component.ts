@@ -21,9 +21,13 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+    map,
+    take,
+} from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
+import { TermPaperService } from './shared/term-paper.service.js';
 
 @Component({
     selector: 'term-paper-add',
@@ -53,6 +57,7 @@ export class TermPaperAddComponent implements OnInit {
     @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
     constructor(
+        private termPaperService: TermPaperService,
         private router: Router,
         private fb: FormBuilder
     ) { }
@@ -153,8 +158,12 @@ export class TermPaperAddComponent implements OnInit {
                 command.file = result;
             });
 
-        console.log(command.file);
-        console.log(command);
+        this.termPaperService
+            .add(command)
+            .pipe(take(1))
+            .subscribe(() => {
+                //
+            });
     }
 
     public onReset() {
