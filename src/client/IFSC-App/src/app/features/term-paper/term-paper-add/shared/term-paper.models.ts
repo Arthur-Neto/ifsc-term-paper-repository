@@ -9,5 +9,6 @@ export class TermPaperAddCommand {
     student1: string;
     student2: string;
     keywords: string[];
-    file: string;
+    fileName: string;
+    fileData: string;
 }

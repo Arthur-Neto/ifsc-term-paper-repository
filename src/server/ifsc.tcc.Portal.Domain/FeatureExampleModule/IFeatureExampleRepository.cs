@@ -3,9 +3,9 @@
 namespace ifsc.tcc.Portal.Domain.FeatureExampleModule
 {
     public interface IFeatureExampleRepository :
-        GetRepository<FeatureExample>,
-        AddRepository<FeatureExample>,
-        RemoveRepository<FeatureExample>,
-        UpdateRepository<FeatureExample>
+        IGetRepository<FeatureExample>,
+        IAddRepository<FeatureExample>,
+        IRemoveRepository<FeatureExample>,
+        IUpdateRepository<FeatureExample>
     { }
 }

@@ -3,23 +3,23 @@ using System.Threading.Tasks;
 
 namespace ifsc.tcc.Portal.Domain.CommonModule
 {
-    public interface AddRepository<T> where T : class
+    public interface IAddRepository<T> where T : class
     {
         Task AddAsync(T entity);
     }
 
-    public interface GetRepository<T> where T : class
+    public interface IGetRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIDAsync(int id);
     }
 
-    public interface RemoveRepository<T> where T : class
+    public interface IRemoveRepository<T> where T : class
     {
         void Remove(T entity);
     }
 
-    public interface UpdateRepository<T> where T : class
+    public interface IUpdateRepository<T> where T : class
     {
         void Update(T entity);
     }

@@ -74,7 +74,6 @@ export class TermPaperAddComponent implements OnInit {
             student1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
             student2: ['', [Validators.minLength(4), Validators.maxLength(50)]],
             keywords: [''],
-            file: ['', [Validators.required]],
         });
 
         this.filteredKeywords =
@@ -155,7 +154,8 @@ export class TermPaperAddComponent implements OnInit {
         this.fileToBase64(this.file)
             .pipe()
             .subscribe((result) => {
-                command.file = result;
+                command.fileName = this.file.name;
+                command.fileData = result;
             });
 
         this.termPaperService

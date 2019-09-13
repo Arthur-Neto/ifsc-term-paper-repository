@@ -7,10 +7,10 @@ using ifsc.tcc.Portal.Infra.Data.EF.Context;
 namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories
 {
     public abstract class GenericRepository<T> :
-        GetRepository<T>,
-        AddRepository<T>,
-        RemoveRepository<T>,
-        UpdateRepository<T>
+        IGetRepository<T>,
+        IAddRepository<T>,
+        IRemoveRepository<T>,
+        IUpdateRepository<T>
         where T : class
     {
         private readonly DbSet<T> _entities;
