@@ -7,7 +7,7 @@
         <section class="row">
             <div class="item">
                 <mat-form-field>
-                    <input matInput placeholder="Digite o título do trabalho" formControlName="title" required>
+                    <input matInput placeholder="{{resources.labels.typeTermPaperTitle}}" formControlName="title" required>
 
                     <mat-error *ngIf="f.title.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
                     <mat-error *ngIf="f.title.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
@@ -17,7 +17,7 @@
 
             <div class="item">
                 <mat-form-field>
-                    <input matInput placeholder="Digite o nome da área do curso" formControlName="area" required>
+                    <input matInput placeholder="{{resources.labels.typeAreaCourseName}}" formControlName="area" required>
 
                     <mat-error *ngIf="f.area.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
                     <mat-error *ngIf="f.area.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
@@ -27,7 +27,7 @@
 
             <div class="item">
                 <mat-form-field>
-                    <input matInput placeholder="Digite o nome do curso" formControlName="course" required>
+                    <input matInput placeholder="{{resources.labels.typeCourseName}}" formControlName="course" required>
 
                     <mat-error *ngIf="f.course.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
                     <mat-error *ngIf="f.course.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
@@ -39,7 +39,7 @@
                 <mat-form-field>
                     <input
                         matInput
-                        placeholder="Escolha a data de inicio do trabalho"
+                        placeholder="{{resources.labels.chooseDateBeginTermPaper}}"
                         formControlName="dateBegin"
                         required
                         [min]="MIN_DATE"
@@ -56,7 +56,7 @@
                 <mat-form-field>
                     <input
                         matInput
-                        placeholder="Escolha a data que foi entregue o trabalho"
+                        placeholder="{{resources.labels.chooseDateEndTermPaper}}"
                         formControlName="dateEnd"
                         required
                         [min]="MIN_DATE"
@@ -73,7 +73,7 @@
         <section class="row">
             <div class="item">
                 <mat-form-field>
-                    <input matInput placeholder="Digite o nome do orientador" formControlName="advisor" required>
+                    <input matInput placeholder="{{resources.labels.typeAdvisorName}}" formControlName="advisor" required>
 
                     <mat-error *ngIf="f.advisor.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
                     <mat-error *ngIf="f.advisor.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
@@ -83,7 +83,7 @@
 
             <div class="item">
                 <mat-form-field>
-                    <input matInput placeholder="Digite o nome do orientando" formControlName="student" required>
+                    <input matInput placeholder="{{resources.labels.typeStudentName}}" formControlName="student" required>
 
                     <mat-error *ngIf="f.student.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
                     <mat-error *ngIf="f.student.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>

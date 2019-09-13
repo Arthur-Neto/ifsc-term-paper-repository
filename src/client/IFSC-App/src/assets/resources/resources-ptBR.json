@@ -6,6 +6,13 @@
         "shouldntContainMoreThanFiftyChar": "Não deve ter mais que 50 caracteres"
     },
     "labels": {
-        "keywordSelection": "Seleção de palavras-chaves"
+        "keywordSelection": "Seleção de palavras-chaves",
+        "typeTermPaperTitle": "Digite o título do trabalho",
+        "typeAreaCourseName": "Digite o nome da área do curso",
+        "typeCourseName": "Digite o nome do curso",
+        "chooseDateBeginTermPaper": "Escolha a data de inicio do trabalho",
+        "chooseDateEndTermPaper": "Escolha a data que foi entregue o trabalho",
+        "typeAdvisorName": "Digite o nome do orientador",
+        "typeStudentName": "Digite o nome do orientando"
     }
 }
