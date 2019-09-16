@@ -21,11 +21,6 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
         private TermPaper()
         { }
 
-        public TermPaper(int id)
-        {
-            ID = id;
-        }
-
         public TermPaper(
             string title,
             DateTime dateBegin,
@@ -35,8 +30,7 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
             string advisorName,
             string coAdvisorName,
             string areaName,
-            string courseName,
-            IEnumerable<TermPaperKeyword> keywords)
+            string courseName)
         {
             Title = title;
             DateBegin = dateBegin;
@@ -47,7 +41,14 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
             CoAdvisorName = coAdvisorName;
             AreaName = areaName;
             CourseName = courseName;
-            TermPaperKeywords = keywords;
+        }
+
+        public void AddKeyword(TermPaperKeyword keyword)
+        {
+            TermPaperKeywords = new List<TermPaperKeyword>()
+            {
+                keyword
+            };
         }
     }
 }

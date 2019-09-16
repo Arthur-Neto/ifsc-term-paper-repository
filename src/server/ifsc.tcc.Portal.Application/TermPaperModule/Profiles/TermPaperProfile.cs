@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
-using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
@@ -19,8 +17,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
                 .ForMember(tp => tp.AdvisorName, tp => tp.MapFrom(cmd => cmd.Advisor))
                 .ForMember(tp => tp.CoAdvisorName, tp => tp.MapFrom(cmd => cmd.CoAdvisor))
                 .ForMember(tp => tp.AreaName, tp => tp.MapFrom(cmd => cmd.Area))
-                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.Course))
-                .ForMember(tp => tp.TermPaperKeywords, tp => tp.MapFrom(cmd => cmd.Keywords.Select(kwd => new TermPaperKeyword(new Keyword(kwd)))));
+                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.Course));
         }
     }
 }

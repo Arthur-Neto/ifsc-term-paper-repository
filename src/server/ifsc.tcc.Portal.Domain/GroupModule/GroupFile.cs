@@ -16,11 +16,6 @@ namespace ifsc.tcc.Portal.Domain.GroupModule
         private GroupFile()
         { }
 
-        public GroupFile(int id)
-        {
-            ID = id;
-        }
-
         public GroupFile(
             string fileName,
             Group group,
