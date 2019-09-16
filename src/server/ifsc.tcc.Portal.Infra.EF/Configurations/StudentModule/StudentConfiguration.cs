@@ -22,7 +22,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.StudentModule
                 .IsRequired();
 
             builder.Property(x => x.Name)
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(50)
                 .IsRequired();
 
@@ -36,9 +36,10 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.StudentModule
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.HasOne(x => x.TermPaper)
+            builder.HasOne(x => x.Group)
                 .WithMany()
-                .HasForeignKey(x => x.TermPaperID)
+                .HasForeignKey(x => x.GroupID)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

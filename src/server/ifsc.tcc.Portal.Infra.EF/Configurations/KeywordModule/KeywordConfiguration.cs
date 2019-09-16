@@ -17,7 +17,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.KeywordModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Value)
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(50)
                 .IsRequired();
         }

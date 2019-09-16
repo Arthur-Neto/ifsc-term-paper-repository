@@ -1,5 +1,7 @@
-﻿using AutoMapper;
-using ifsc.tcc.Portal.Application.TermPaperModule.Models;
+﻿using System.Linq;
+using AutoMapper;
+using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
+using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
@@ -8,14 +10,17 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
     {
         public TermPaperProfile()
         {
-            CreateMap<TermPaperModelMapper, TermPaper>()
-                .ForMember(tp => tp.DateBegin, tp => tp.MapFrom(model => model.DateBegin))
-                .ForMember(tp => tp.DateEnd, tp => tp.MapFrom(model => model.DateEnd))
-                .ForMember(tp => tp.Title, tp => tp.MapFrom(model => model.Title))
-                .ForMember(tp => tp.Area, tp => tp.MapFrom(model => model.Area))
-                .ForMember(tp => tp.Course, tp => tp.MapFrom(model => model.Course))
-                .ForMember(tp => tp.KeywordTermPapers, tp => tp.MapFrom(model => model.KeywordTermPapers))
-                .ForMember(tp => tp.TermPaperAdvisors, tp => tp.MapFrom(model => model.TermPaperAdvisors));
+            CreateMap<TermPaperAddCommand, TermPaper>()
+                .ForMember(tp => tp.Title, tp => tp.MapFrom(cmd => cmd.Title))
+                .ForMember(tp => tp.DateBegin, tp => tp.MapFrom(cmd => cmd.DateBegin))
+                .ForMember(tp => tp.DateEnd, tp => tp.MapFrom(cmd => cmd.DateEnd))
+                .ForMember(tp => tp.StudentAName, tp => tp.MapFrom(cmd => cmd.StudentAName))
+                .ForMember(tp => tp.StudentBName, tp => tp.MapFrom(cmd => cmd.StudentBName))
+                .ForMember(tp => tp.AdvisorName, tp => tp.MapFrom(cmd => cmd.AdvisorName))
+                .ForMember(tp => tp.CoAdvisorName, tp => tp.MapFrom(cmd => cmd.CoAdvisorName))
+                .ForMember(tp => tp.AreaName, tp => tp.MapFrom(cmd => cmd.AreaName))
+                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.CourseName))
+                .ForMember(tp => tp.TermPaperKeywords, tp => tp.MapFrom(cmd => cmd.Keywords.Select(kwd => new TermPaperKeyword(new Keyword(kwd)))));
         }
     }
 }

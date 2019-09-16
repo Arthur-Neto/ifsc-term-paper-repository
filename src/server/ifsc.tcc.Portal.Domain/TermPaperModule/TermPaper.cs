@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ifsc.tcc.Portal.Domain.AreaModule;
 using ifsc.tcc.Portal.Domain.CommonModule;
-using ifsc.tcc.Portal.Domain.CourseModule;
-using ifsc.tcc.Portal.Domain.KeywordModule;
 
 namespace ifsc.tcc.Portal.Domain.TermPaperModule
 {
@@ -12,13 +9,14 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
         public string Title { get; private set; }
         public DateTime DateBegin { get; private set; }
         public DateTime DateEnd { get; private set; }
-        public int AreaID { get; private set; }
-        public int CourseID { get; private set; }
+        public string StudentAName { get; private set; }
+        public string StudentBName { get; private set; }
+        public string AdvisorName { get; private set; }
+        public string CoAdvisorName { get; private set; }
+        public string AreaName { get; private set; }
+        public string CourseName { get; private set; }
 
-        public virtual Area Area { get; private set; }
-        public virtual Course Course { get; private set; }
-        public virtual IEnumerable<KeywordTermPaper> KeywordTermPapers { get; private set; }
-        public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
+        public IEnumerable<TermPaperKeyword> TermPaperKeywords { get; private set; }
 
         private TermPaper()
         { }
@@ -27,18 +25,24 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
             string title,
             DateTime dateBegin,
             DateTime dateEnd,
-            Area area,
-            Course course,
-            IEnumerable<KeywordTermPaper> keywordTermPapers,
-            IEnumerable<TermPaperAdvisor> termPaperAdvisors)
+            string studentAName,
+            string studentBName,
+            string advisorName,
+            string coAdvisorName,
+            string areaName,
+            string courseName,
+            IEnumerable<TermPaperKeyword> keywords)
         {
             Title = title;
             DateBegin = dateBegin;
             DateEnd = dateEnd;
-            Area = area;
-            Course = course;
-            KeywordTermPapers = keywordTermPapers;
-            TermPaperAdvisors = termPaperAdvisors;
+            StudentAName = studentAName;
+            StudentBName = studentBName;
+            AdvisorName = advisorName;
+            CoAdvisorName = coAdvisorName;
+            AreaName = areaName;
+            CourseName = courseName;
+            TermPaperKeywords = keywords;
         }
     }
 }

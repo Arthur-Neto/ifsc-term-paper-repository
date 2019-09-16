@@ -7,16 +7,17 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
     public class TermPaperAddCommand
     {
         public string Title { get; set; }
-        public int AreaID { get; set; }
-        public int CourseID { get; set; }
         public DateTime DateBegin { get; set; }
         public DateTime DateEnd { get; set; }
-        public int AdvisorID { get; set; }
-        public int CoAdvisorID { get; set; }
-        public int StudentAID { get; set; }
-        public int StudentBID { get; set; }
+        public string StudentAName { get; set; }
+        public string StudentBName { get; set; }
+        public string AdvisorName { get; set; }
+        public string CoAdvisorName { get; set; }
+        public string AreaName { get; set; }
+        public string CourseName { get; set; }
+        public string FileName { get; set; }
+        public string FileData { get; set; }
         public IEnumerable<string> Keywords { get; set; }
-        public string File { get; set; }
     }
 
     public class TermPaperAddCommandCommandValidator : AbstractValidator<TermPaperAddCommand>
@@ -27,36 +28,47 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
                 .NotEmpty()
                 .Length(4, 100);
 
-            RuleFor(x => x.AreaID)
-                .NotEmpty();
-
-            RuleFor(x => x.CourseID)
-                .NotEmpty();
-
             RuleFor(x => x.DateBegin)
                 .NotEmpty();
 
             RuleFor(x => x.DateEnd)
                 .NotEmpty();
 
-            RuleFor(x => x.AdvisorID)
-                .NotEmpty();
-
-            RuleFor(x => x.CoAdvisorID)
+            RuleFor(x => x.StudentAName)
                 .NotEmpty()
-                .When(x => x.CoAdvisorID > 0);
+                .Length(4, 50);
 
-            RuleFor(x => x.StudentAID)
-                .NotEmpty();
-
-            RuleFor(x => x.StudentBID)
+            RuleFor(x => x.StudentBName)
                 .NotEmpty()
-                .When(x => x.StudentBID > 0);
+                .Length(4, 50)
+                .When(x => x.StudentBName.Length > 0);
+
+            RuleFor(x => x.AdvisorName)
+                .NotEmpty()
+                .Length(4, 50);
+
+            RuleFor(x => x.CoAdvisorName)
+                .NotEmpty()
+                .Length(4, 50)
+                .When(x => x.CoAdvisorName.Length > 0);
+
+            RuleFor(x => x.AreaName)
+                .NotEmpty()
+                .Length(4, 50);
+
+            RuleFor(x => x.CourseName)
+                .NotEmpty()
+                .Length(4, 50);
+
+            RuleFor(x => x.FileName)
+                .NotEmpty()
+                .Length(4, 50);
+
+            RuleFor(x => x.FileData)
+                .NotEmpty()
+                .MaximumLength(500);
 
             RuleFor(x => x.Keywords)
-                .NotEmpty();
-
-            RuleFor(x => x.File)
                 .NotEmpty();
         }
     }

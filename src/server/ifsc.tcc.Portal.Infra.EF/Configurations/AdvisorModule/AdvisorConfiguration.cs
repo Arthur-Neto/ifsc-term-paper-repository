@@ -16,13 +16,8 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AdvisorModule
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.AdvisorType)
-                .HasColumnName("AdvisorTypeID")
-                .HasColumnType("INT")
-                .IsRequired();
-
             builder.Property(x => x.Name)
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(50)
                 .IsRequired();
 

@@ -4,6 +4,5 @@
     {
         Leader = 1,
         CoLeader = 2,
-        TermPaperTeacher = 3
     }
 }

@@ -12,14 +12,20 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.CoursesModule
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
-                .HasColumnName("CoursesID")
+                .HasColumnName("CourseID")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name)
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(100)
                 .IsRequired();
+
+            builder.HasOne(x => x.Area)
+                .WithMany()
+                .HasForeignKey(x => x.Area)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

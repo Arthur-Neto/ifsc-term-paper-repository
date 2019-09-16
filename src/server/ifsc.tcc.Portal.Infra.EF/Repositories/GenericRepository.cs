@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using ifsc.tcc.Portal.Domain.CommonModule;
 using ifsc.tcc.Portal.Infra.Data.EF.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories
 {
@@ -13,7 +13,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories
         IUpdateRepository<T>
         where T : class
     {
-        private readonly DbSet<T> _entities;
+        protected readonly DbSet<T> _entities;
 
         public GenericRepository(IFSCContext context)
         {

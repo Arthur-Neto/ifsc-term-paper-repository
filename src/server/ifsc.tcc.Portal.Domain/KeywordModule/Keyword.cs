@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ifsc.tcc.Portal.Domain.CommonModule;
+using ifsc.tcc.Portal.Domain.TermPaperModule;
 
 namespace ifsc.tcc.Portal.Domain.KeywordModule
 {
@@ -7,7 +8,7 @@ namespace ifsc.tcc.Portal.Domain.KeywordModule
     {
         public string Value { get; private set; }
 
-        public virtual IEnumerable<KeywordTermPaper> KeywordTermPaper { get; private set; }
+        public virtual IEnumerable<TermPaperKeyword> TermPaperKeywords { get; private set; }
 
         private Keyword()
         { }

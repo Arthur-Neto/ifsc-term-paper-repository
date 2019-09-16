@@ -17,7 +17,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Title)
-                .HasColumnType("VARCHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(100)
                 .IsRequired();
 
@@ -28,14 +28,36 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
             builder.Property(x => x.DateEnd)
                 .HasColumnType("DATETIME");
 
-            builder.HasOne(x => x.Area)
-                .WithMany()
-                .HasForeignKey(x => x.AreaID)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(x => x.StudentAName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
 
-            builder.HasOne(x => x.Course)
-                .WithMany()
-                .HasForeignKey(x => x.CourseID)
+            builder.Property(x => x.StudentBName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50);
+
+            builder.Property(x => x.AdvisorName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Property(x => x.CoAdvisorName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50);
+
+            builder.Property(x => x.AreaName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Property(x => x.CourseName)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.HasMany(x => x.TermPaperKeywords)
+                .WithOne()
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

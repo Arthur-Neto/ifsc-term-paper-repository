@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using ifsc.tcc.Portal.Domain.CommonModule;
-using ifsc.tcc.Portal.Domain.TermPaperModule;
+﻿using ifsc.tcc.Portal.Domain.CommonModule;
 
 namespace ifsc.tcc.Portal.Domain.AdvisorModule
 {
@@ -10,8 +8,6 @@ namespace ifsc.tcc.Portal.Domain.AdvisorModule
         public string Password { get; private set; }
         public string Name { get; private set; }
         public AdvisorType AdvisorType { get; private set; }
-
-        public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
 
         private Advisor()
         { }

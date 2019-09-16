@@ -1,8 +1,8 @@
-﻿using ifsc.tcc.Portal.Domain.TermPaperModule;
+﻿using ifsc.tcc.Portal.Domain.KeywordModule;
 
-namespace ifsc.tcc.Portal.Domain.KeywordModule
+namespace ifsc.tcc.Portal.Domain.TermPaperModule
 {
-    public class KeywordTermPaper
+    public class TermPaperKeyword
     {
         public int TermPaperID { get; private set; }
         public int KeywordID { get; private set; }
@@ -10,10 +10,10 @@ namespace ifsc.tcc.Portal.Domain.KeywordModule
         public virtual TermPaper TermPaper { get; private set; }
         public virtual Keyword Keyword { get; private set; }
 
-        private KeywordTermPaper()
+        private TermPaperKeyword()
         { }
 
-        public KeywordTermPaper(Keyword keyword)
+        public TermPaperKeyword(Keyword keyword)
         {
             Keyword = keyword;
         }

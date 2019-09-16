@@ -3,6 +3,7 @@
 namespace ifsc.tcc.Portal.Domain.TermPaperModule
 {
     public interface ITermPaperRepository
-        : IAddRepository<TermPaper>
+        : IAddRepository<TermPaper>,
+        IGetRepository<TermPaper>
     { }
 }
