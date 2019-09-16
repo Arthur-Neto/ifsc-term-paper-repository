@@ -6,7 +6,7 @@ namespace ifsc.tcc.Portal.Domain.GroupModule
     public class GroupFile : Entity
     {
         public string FileName { get; private set; }
-        public string FileData { get; private set; }
+        public string FilePath { get; private set; }
         public int GroupID { get; private set; }
         public int TermPaperID { get; private set; }
 
@@ -16,14 +16,17 @@ namespace ifsc.tcc.Portal.Domain.GroupModule
         private GroupFile()
         { }
 
+        public GroupFile(int id)
+        {
+            ID = id;
+        }
+
         public GroupFile(
             string fileName,
-            string fileData,
             Group group,
             TermPaper termPaper)
         {
             FileName = fileName;
-            FileData = fileData;
             Group = group;
             TermPaper = termPaper;
         }

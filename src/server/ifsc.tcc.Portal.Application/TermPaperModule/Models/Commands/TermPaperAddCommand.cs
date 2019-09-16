@@ -9,14 +9,14 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
         public string Title { get; set; }
         public DateTime DateBegin { get; set; }
         public DateTime DateEnd { get; set; }
-        public string StudentAName { get; set; }
-        public string StudentBName { get; set; }
-        public string AdvisorName { get; set; }
-        public string CoAdvisorName { get; set; }
-        public string AreaName { get; set; }
-        public string CourseName { get; set; }
+        public string Student1 { get; set; }
+        public string Student2 { get; set; }
+        public string Advisor { get; set; }
+        public string CoAdvisor { get; set; }
+        public string Area { get; set; }
+        public string Course { get; set; }
         public string FileName { get; set; }
-        public string FileData { get; set; }
+        //public string FileData { get; set; }
         public IEnumerable<string> Keywords { get; set; }
     }
 
@@ -34,29 +34,29 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
             RuleFor(x => x.DateEnd)
                 .NotEmpty();
 
-            RuleFor(x => x.StudentAName)
+            RuleFor(x => x.Student1)
                 .NotEmpty()
                 .Length(4, 50);
 
-            RuleFor(x => x.StudentBName)
+            RuleFor(x => x.Student2)
                 .NotEmpty()
                 .Length(4, 50)
-                .When(x => x.StudentBName.Length > 0);
+                .When(x => x.Student2.Length > 0);
 
-            RuleFor(x => x.AdvisorName)
+            RuleFor(x => x.Advisor)
                 .NotEmpty()
                 .Length(4, 50);
 
-            RuleFor(x => x.CoAdvisorName)
+            RuleFor(x => x.CoAdvisor)
                 .NotEmpty()
                 .Length(4, 50)
-                .When(x => x.CoAdvisorName.Length > 0);
+                .When(x => x.CoAdvisor.Length > 0);
 
-            RuleFor(x => x.AreaName)
+            RuleFor(x => x.Area)
                 .NotEmpty()
                 .Length(4, 50);
 
-            RuleFor(x => x.CourseName)
+            RuleFor(x => x.Course)
                 .NotEmpty()
                 .Length(4, 50);
 
@@ -64,9 +64,9 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
                 .NotEmpty()
                 .Length(4, 50);
 
-            RuleFor(x => x.FileData)
-                .NotEmpty()
-                .MaximumLength(500);
+            //RuleFor(x => x.FileData)
+            //    .NotEmpty()
+            //    .MaximumLength(500);
 
             RuleFor(x => x.Keywords)
                 .NotEmpty();

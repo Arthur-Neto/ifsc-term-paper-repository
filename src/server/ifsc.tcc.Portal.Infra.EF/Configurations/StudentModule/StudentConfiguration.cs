@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.StudentModule
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {
-            builder.ToTable("Students", "dbo");
+            builder.ToTable("Students");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,22 +17,22 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.StudentModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Email)
-                .HasColumnType("VARCHAR")
+                .IsUnicode(false)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.Name)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.Password)
-                .HasColumnType("VARCHAR")
+                .IsUnicode(false)
                 .HasMaxLength(200)
                 .IsRequired();
 
             builder.Property(x => x.RegistrationNumber)
-                .HasColumnType("VARCHAR")
+                .IsUnicode(false)
                 .HasMaxLength(50)
                 .IsRequired();
 

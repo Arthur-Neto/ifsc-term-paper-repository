@@ -6,6 +6,7 @@ namespace ifsc.tcc.Portal.Domain.CourseModule
     public class Course : Entity
     {
         public string Name { get; private set; }
+        public int AreaID { get; private set; }
 
         public virtual Area Area { get; private set; }
 

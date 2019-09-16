@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.CoursesModule
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
-            builder.ToTable("Courses", "dbo");
+            builder.ToTable("Courses");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,13 +17,13 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.CoursesModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(100)
                 .IsRequired();
 
             builder.HasOne(x => x.Area)
                 .WithMany()
-                .HasForeignKey(x => x.Area)
+                .HasForeignKey(x => x.AreaID)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }

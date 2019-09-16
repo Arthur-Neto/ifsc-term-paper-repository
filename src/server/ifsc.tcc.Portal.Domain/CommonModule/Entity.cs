@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ifsc.tcc.Portal.Domain.CommonModule
 {
-    public class Entity : IEntity, IEquatable<Entity>
+    public abstract class Entity : IEntity, IEquatable<Entity>
     {
-        public virtual int ID { get; private set; }
+        public int ID { get; set; }
 
         public override bool Equals(object obj)
         {

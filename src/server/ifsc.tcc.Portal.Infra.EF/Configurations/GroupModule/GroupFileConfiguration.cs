@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.GroupModule
     {
         public void Configure(EntityTypeBuilder<GroupFile> builder)
         {
-            builder.ToTable("GroupFiles", "dbo");
+            builder.ToTable("GroupFiles");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -16,15 +16,14 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.GroupModule
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.FileData)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(500)
+            builder.Property(x => x.FilePath)
+                .IsUnicode(false)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.FileName)
-                .HasColumnType("NVARCHAR")
-                .HasMaxLength(50)
-                .IsRequired();
+                .IsUnicode(true)
+                .HasMaxLength(50);
 
             builder.HasOne(x => x.Group)
                 .WithMany()

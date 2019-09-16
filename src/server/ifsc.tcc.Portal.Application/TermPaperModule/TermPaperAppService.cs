@@ -34,13 +34,13 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
 
         public async Task<bool> AddAsync(TermPaperAddCommand command)
         {
-            var student = await _studentRepository.Value.GetByName(command.StudentAName);
+            var student = await _studentRepository.Value.GetByName(command.Student1);
             Guard.AgainstNull(student, ExceptionArguments.NotFound);
 
             var termPaper = Mapper.Value.Map<TermPaper>(command);
             await Repository.AddAsync(termPaper);
 
-            var groupFile = new GroupFile(command.FileData, command.FileData, student.Group, termPaper);
+            var groupFile = new GroupFile(command.FileName, student.Group, termPaper);
             await _groupFileRepository.Value.AddAsync(groupFile);
 
             return await UnitOfWork.Value.CommitAsync() > 0;

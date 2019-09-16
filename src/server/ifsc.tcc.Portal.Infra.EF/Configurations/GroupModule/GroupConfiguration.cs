@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.GroupModule
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.ToTable("Groups", "dbo");
+            builder.ToTable("Groups");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)

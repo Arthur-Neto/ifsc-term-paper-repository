@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.KeywordModule
     {
         public void Configure(EntityTypeBuilder<Keyword> builder)
         {
-            builder.ToTable("Keywords", "dbo");
+            builder.ToTable("Keywords");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,9 +17,14 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.KeywordModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Value)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.HasMany(x => x.TermPaperKeywords)
+                .WithOne(x => x.Keyword)
+                .HasForeignKey(x => x.KeywordID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

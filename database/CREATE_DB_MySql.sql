@@ -128,11 +128,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `TCCDB_IFSC`.`GroupFiles` ;
 
 CREATE TABLE IF NOT EXISTS `TCCDB_IFSC`.`GroupFiles` (
-  `GroupFileID` INT NOT NULL,
+  `GroupFileID` INT NOT NULL AUTO_INCREMENT,
   `GroupID` INT NOT NULL,
   `TermPaperID` INT NULL,
   `FileName` NVARCHAR(50) NOT NULL,
-  `FileData` VARCHAR(500) NOT NULL,
+  `FilePath` VARCHAR(50) NULL,
   PRIMARY KEY (`GroupFileID`),
   INDEX `FK_TermPaperFiles_TermPapers_idx` (`GroupID` ASC) VISIBLE,
   INDEX `FK_GroupFiles_TermPapers_idx` (`TermPaperID` ASC) VISIBLE,

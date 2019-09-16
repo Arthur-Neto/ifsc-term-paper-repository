@@ -1,13 +1,13 @@
 export class TermPaperAddCommand {
     title: string;
-    area: string;
-    course: string;
+    areaName: string;
+    courseName: string;
     dateBegin: Date;
     dateEnd: Date;
-    advisor: string;
-    coAdvisor: string;
-    student1: string;
-    student2: string;
+    advisorName: string;
+    coAdvisorName: string;
+    studentAName: string;
+    studentBName: string;
     keywords: string[];
     fileName: string;
     fileData: string;

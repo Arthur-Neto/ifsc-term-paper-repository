@@ -1,4 +1,5 @@
-﻿using ifsc.tcc.Portal.Domain.AdvisorModule;
+﻿using System.Reflection;
+using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
 using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.GroupModule;
@@ -23,5 +24,10 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Context
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<TermPaper> TermPapers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

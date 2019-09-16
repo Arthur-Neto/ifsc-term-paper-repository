@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
     {
         public void Configure(EntityTypeBuilder<TermPaper> builder)
         {
-            builder.ToTable("TermPapers", "dbo");
+            builder.ToTable("TermPapers");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,7 +17,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Title)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(100)
                 .IsRequired();
 
@@ -29,35 +29,36 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
                 .HasColumnType("DATETIME");
 
             builder.Property(x => x.StudentAName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.StudentBName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50);
 
             builder.Property(x => x.AdvisorName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.CoAdvisorName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50);
 
             builder.Property(x => x.AreaName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.CourseName)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.HasMany(x => x.TermPaperKeywords)
-                .WithOne()
+                .WithOne(x => x.TermPaper)
+                .HasForeignKey(x => x.TermPaperID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

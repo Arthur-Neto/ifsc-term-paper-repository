@@ -7,7 +7,6 @@ namespace ifsc.tcc.Portal.Domain.AdvisorModule
         public string Login { get; private set; }
         public string Password { get; private set; }
         public string Name { get; private set; }
-        public AdvisorType AdvisorType { get; private set; }
 
         private Advisor()
         { }

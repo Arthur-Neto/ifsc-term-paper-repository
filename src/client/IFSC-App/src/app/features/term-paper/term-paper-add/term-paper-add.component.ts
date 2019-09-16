@@ -151,12 +151,12 @@ export class TermPaperAddComponent implements OnInit {
         }
 
         const command = termPaper.value;
-        this.fileToBase64(this.file)
-            .pipe()
-            .subscribe((result) => {
-                command.fileName = this.file.name;
-                command.fileData = result;
-            });
+        command.fileName = this.file.name;
+        // this.fileToBase64(this.file)
+        //     .pipe()
+        //     .subscribe((result) => {
+        //         command.fileName = this.file.name;
+        //     });
 
         this.termPaperService
             .add(command)

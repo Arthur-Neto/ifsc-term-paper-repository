@@ -14,12 +14,12 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
                 .ForMember(tp => tp.Title, tp => tp.MapFrom(cmd => cmd.Title))
                 .ForMember(tp => tp.DateBegin, tp => tp.MapFrom(cmd => cmd.DateBegin))
                 .ForMember(tp => tp.DateEnd, tp => tp.MapFrom(cmd => cmd.DateEnd))
-                .ForMember(tp => tp.StudentAName, tp => tp.MapFrom(cmd => cmd.StudentAName))
-                .ForMember(tp => tp.StudentBName, tp => tp.MapFrom(cmd => cmd.StudentBName))
-                .ForMember(tp => tp.AdvisorName, tp => tp.MapFrom(cmd => cmd.AdvisorName))
-                .ForMember(tp => tp.CoAdvisorName, tp => tp.MapFrom(cmd => cmd.CoAdvisorName))
-                .ForMember(tp => tp.AreaName, tp => tp.MapFrom(cmd => cmd.AreaName))
-                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.CourseName))
+                .ForMember(tp => tp.StudentAName, tp => tp.MapFrom(cmd => cmd.Student1))
+                .ForMember(tp => tp.StudentBName, tp => tp.MapFrom(cmd => cmd.Student2))
+                .ForMember(tp => tp.AdvisorName, tp => tp.MapFrom(cmd => cmd.Advisor))
+                .ForMember(tp => tp.CoAdvisorName, tp => tp.MapFrom(cmd => cmd.CoAdvisor))
+                .ForMember(tp => tp.AreaName, tp => tp.MapFrom(cmd => cmd.Area))
+                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.Course))
                 .ForMember(tp => tp.TermPaperKeywords, tp => tp.MapFrom(cmd => cmd.Keywords.Select(kwd => new TermPaperKeyword(new Keyword(kwd)))));
         }
     }

@@ -21,6 +21,11 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
         private TermPaper()
         { }
 
+        public TermPaper(int id)
+        {
+            ID = id;
+        }
+
         public TermPaper(
             string title,
             DateTime dateBegin,

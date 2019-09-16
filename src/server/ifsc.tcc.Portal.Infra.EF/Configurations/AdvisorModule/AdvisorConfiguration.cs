@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AdvisorModule
     {
         public void Configure(EntityTypeBuilder<Advisor> builder)
         {
-            builder.ToTable("Advisors", "dbo");
+            builder.ToTable("Advisors");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,17 +17,17 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AdvisorModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.Login)
-                .HasColumnType("VARCHAR")
+                .IsUnicode(false)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.Password)
-                .HasColumnType("VARCHAR")
+                .IsUnicode(false)
                 .HasMaxLength(200)
                 .IsRequired();
         }

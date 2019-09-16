@@ -8,7 +8,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AreaModule
     {
         public void Configure(EntityTypeBuilder<Area> builder)
         {
-            builder.ToTable("Areas", "dbo");
+            builder.ToTable("Areas");
             builder.HasKey(x => x.ID);
 
             builder.Property(x => x.ID)
@@ -17,7 +17,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AreaModule
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name)
-                .HasColumnType("NVARCHAR")
+                .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
         }

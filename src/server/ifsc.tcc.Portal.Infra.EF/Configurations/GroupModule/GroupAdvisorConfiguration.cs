@@ -8,13 +8,12 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.GroupModule
     {
         public void Configure(EntityTypeBuilder<GroupAdvisor> builder)
         {
-            builder.ToTable("Groups_Advisors", "dbo");
-            builder.HasKey(x => new { x.AdvisorID, x.GroupID, x.Advisor.AdvisorType });
+            builder.ToTable("Groups_Advisors");
+            builder.HasKey(x => new { x.AdvisorID, x.GroupID, x.AdvisorType });
 
-            builder.Property(x => x.Advisor.AdvisorType)
+            builder.Property(x => x.AdvisorType)
                 .HasColumnName("AdvisorTypeID")
-                .IsRequired()
-                .ValueGeneratedNever();
+                .IsRequired();
 
             builder.HasOne(x => x.Advisor)
                 .WithMany()
