@@ -10,12 +10,13 @@ namespace ifsc.tcc.Portal.Domain.CourseModule
 
         public virtual Area Area { get; private set; }
 
-        private Course()
+        public Course()
         { }
 
-        public Course(Area area)
+        public Course(Area area, string name)
         {
             Area = area;
+            Name = name;
         }
     }
 }

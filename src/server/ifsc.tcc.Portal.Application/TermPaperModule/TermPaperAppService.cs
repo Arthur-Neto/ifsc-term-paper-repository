@@ -46,13 +46,9 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
 
         public async Task<bool> AddAsync(TermPaperAddCommand command)
         {
-            var area = new Area(command.Area);
-            await _areaRepository.Value.AddAsync(area);
-
-            var course = new Course(area);
-            await _courseRepository.Value.AddAsync(course);
-
             var termPaper = Mapper.Value.Map<TermPaper>(command);
+
+            await HandleCourse(command, termPaper);
 
             await HandleKeywords(command, termPaper);
 
@@ -65,9 +61,25 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             return await UnitOfWork.Value.CommitAsync() > 0;
         }
 
+        private async Task HandleCourse(TermPaperAddCommand command, TermPaper termPaper)
+        {
+            var course = await _courseRepository.Value.GetByName(command.Course);
+
+            if (course == null)
+            {
+                var area = new Area(command.Area);
+                await _areaRepository.Value.AddAsync(area);
+
+                course = new Course(area, command.Course);
+                await _courseRepository.Value.AddAsync(course);
+            }
+
+            termPaper.SetCourse(course);
+        }
+
         private async Task HandleAdvisors(TermPaperAddCommand command, TermPaper termPaper)
         {
-            var advisor = new Advisor(command.Advisor.ToLower().Trim(), "123", command.Advisor);
+            var advisor = new Advisor(command.Advisor.ToLower().Trim().Replace(" ", "."), "123", command.Advisor);
             await _advisorRepository.Value.AddAsync(advisor);
 
             var termPaperAdvisor = new TermPaperAdvisor(AdvisorType.Leader, termPaper, advisor);

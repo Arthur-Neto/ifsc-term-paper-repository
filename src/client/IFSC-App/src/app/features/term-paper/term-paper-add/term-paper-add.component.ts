@@ -27,7 +27,7 @@ import {
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
-import { TermPaperService } from './shared/term-paper.service.js';
+import { TermPaperService } from '../shared/term-paper.service.js';
 
 @Component({
     selector: 'term-paper-add',
@@ -152,34 +152,18 @@ export class TermPaperAddComponent implements OnInit {
 
         const command = termPaper.value;
         command.fileName = this.file.name;
-        // this.fileToBase64(this.file)
-        //     .pipe()
-        //     .subscribe((result) => {
-        //         command.fileName = this.file.name;
-        //     });
 
         this.termPaperService
             .add(command)
             .pipe(take(1))
             .subscribe(() => {
-                //
+                this.router.navigateByUrl('\home');
             });
     }
 
     public onReset() {
         this.router.navigateByUrl('');
     }
-
-    private fileToBase64 = (file: any) => new Observable((observer) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            observer.next(reader.result);
-        };
-        reader.onerror = (error) => {
-            observer.error(error);
-        };
-    })
 
     private filterKeywords(value: string): string[] {
         const matches = value ? this.allKeywords.filter((s) => new RegExp(`^${ value }`, 'gi').test(s)) : this.allKeywords;

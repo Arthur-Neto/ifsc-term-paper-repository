@@ -63,10 +63,6 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
                 .NotEmpty()
                 .Length(4, 50);
 
-            //RuleFor(x => x.FileData)
-            //    .NotEmpty()
-            //    .MaximumLength(500);
-
             RuleFor(x => x.Keywords)
                 .NotEmpty();
         }
