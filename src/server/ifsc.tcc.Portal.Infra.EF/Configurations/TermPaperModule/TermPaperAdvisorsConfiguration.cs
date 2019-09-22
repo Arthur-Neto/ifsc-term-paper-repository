@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
 {
-    public class TermPaperAdvisorsConfiguration : IEntityTypeConfiguration<TermPaperAdvisors>
+    public class TermPaperAdvisorsConfiguration : IEntityTypeConfiguration<TermPaperAdvisor>
     {
-        public void Configure(EntityTypeBuilder<TermPaperAdvisors> builder)
+        public void Configure(EntityTypeBuilder<TermPaperAdvisor> builder)
         {
             builder.ToTable("TermPapers_Advisors");
             builder.HasKey(x => new { x.TermPaperID, x.AdvisorID });

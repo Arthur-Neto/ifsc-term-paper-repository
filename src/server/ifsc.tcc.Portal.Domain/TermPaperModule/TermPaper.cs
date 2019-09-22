@@ -15,7 +15,7 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
 
         public virtual Course Course { get; private set; }
         public virtual IEnumerable<TermPaperKeyword> TermPaperKeywords { get; private set; }
-        public virtual IEnumerable<TermPaperAdvisors> TermPaperAdvisors { get; private set; }
+        public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
 
         private TermPaper()
         { }

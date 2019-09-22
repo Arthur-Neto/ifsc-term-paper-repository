@@ -2,7 +2,7 @@
 
 namespace ifsc.tcc.Portal.Domain.TermPaperModule
 {
-    public class TermPaperAdvisors
+    public class TermPaperAdvisor
     {
         public int TermPaperID { get; private set; }
         public int AdvisorID { get; private set; }
