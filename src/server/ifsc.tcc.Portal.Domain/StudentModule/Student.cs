@@ -12,5 +12,15 @@ namespace ifsc.tcc.Portal.Domain.StudentModule
 
         private Student()
         { }
+
+        public Student(string name)
+        {
+            Name = name;
+        }
+
+        public void SetTermPaper(TermPaper termPaper)
+        {
+            TermPaper = termPaper;
+        }
     }
 }

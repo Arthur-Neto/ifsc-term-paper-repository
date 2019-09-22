@@ -18,14 +18,33 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
         public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
 
         private TermPaper()
-        { }
+        {
+            TermPaperKeywords = new List<TermPaperKeyword>();
+            TermPaperAdvisors = new List<TermPaperAdvisor>();
+        }
+
+        public TermPaper(string title, DateTime dateBegin, DateTime dateEnd, string fileName)
+            : this()
+        {
+            Title = title;
+            DateBegin = dateBegin;
+            DateEnd = dateEnd;
+            FileName = fileName;
+        }
+
+        public void SetCourse(Course course)
+        {
+            Course = course;
+        }
+
+        public void AddAdvisor(TermPaperAdvisor advisor)
+        {
+            (TermPaperAdvisors as List<TermPaperAdvisor>).Add(advisor);
+        }
 
         public void AddKeyword(TermPaperKeyword keyword)
         {
-            TermPaperKeywords = new List<TermPaperKeyword>()
-            {
-                keyword
-            };
+            (TermPaperKeywords as List<TermPaperKeyword>).Add(keyword);
         }
     }
 }

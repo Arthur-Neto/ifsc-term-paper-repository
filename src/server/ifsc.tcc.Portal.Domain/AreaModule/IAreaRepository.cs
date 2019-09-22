@@ -3,6 +3,7 @@
 namespace ifsc.tcc.Portal.Domain.AreaModule
 {
     public interface IAreaRepository
-        : IGetRepository<Area>
+        : IGetRepository<Area>,
+        IAddRepository<Area>
     { }
 }

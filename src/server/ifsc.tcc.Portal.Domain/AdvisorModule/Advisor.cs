@@ -14,5 +14,16 @@ namespace ifsc.tcc.Portal.Domain.AdvisorModule
 
         private Advisor()
         { }
+
+        public Advisor(string name)
+        {
+            Name = name;
+        }
+
+        public Advisor(string login, string password, string name) : this(login)
+        {
+            Password = password;
+            Name = name;
+        }
     }
 }

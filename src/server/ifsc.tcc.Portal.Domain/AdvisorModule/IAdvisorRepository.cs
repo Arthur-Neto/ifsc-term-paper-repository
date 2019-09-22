@@ -3,6 +3,7 @@
 namespace ifsc.tcc.Portal.Domain.AdvisorModule
 {
     public interface IAdvisorRepository
-        : IGetRepository<Advisor>
+        : IGetRepository<Advisor>,
+        IAddRepository<Advisor>
     { }
 }

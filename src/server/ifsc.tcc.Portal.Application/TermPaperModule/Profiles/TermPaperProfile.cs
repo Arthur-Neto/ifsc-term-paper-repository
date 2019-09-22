@@ -12,12 +12,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Profiles
                 .ForMember(tp => tp.Title, tp => tp.MapFrom(cmd => cmd.Title))
                 .ForMember(tp => tp.DateBegin, tp => tp.MapFrom(cmd => cmd.DateBegin))
                 .ForMember(tp => tp.DateEnd, tp => tp.MapFrom(cmd => cmd.DateEnd))
-                .ForMember(tp => tp.StudentAName, tp => tp.MapFrom(cmd => cmd.Student1))
-                .ForMember(tp => tp.StudentBName, tp => tp.MapFrom(cmd => cmd.Student2))
-                .ForMember(tp => tp.AdvisorName, tp => tp.MapFrom(cmd => cmd.Advisor))
-                .ForMember(tp => tp.CoAdvisorName, tp => tp.MapFrom(cmd => cmd.CoAdvisor))
-                .ForMember(tp => tp.AreaName, tp => tp.MapFrom(cmd => cmd.Area))
-                .ForMember(tp => tp.CourseName, tp => tp.MapFrom(cmd => cmd.Course));
+                .ForMember(tp => tp.FileName, tp => tp.MapFrom(cmd => cmd.FileName));
         }
     }
 }

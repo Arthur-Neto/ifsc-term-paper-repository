@@ -16,7 +16,6 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
         public string Area { get; set; }
         public string Course { get; set; }
         public string FileName { get; set; }
-        //public string FileData { get; set; }
         public IEnumerable<string> Keywords { get; set; }
     }
 

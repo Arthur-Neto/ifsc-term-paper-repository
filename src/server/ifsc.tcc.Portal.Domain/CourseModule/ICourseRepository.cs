@@ -3,6 +3,7 @@
 namespace ifsc.tcc.Portal.Domain.CourseModule
 {
     public interface ICourseRepository
-        : IGetRepository<Course>
+        : IGetRepository<Course>,
+        IAddRepository<Course>
     { }
 }

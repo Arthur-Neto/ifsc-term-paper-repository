@@ -8,5 +8,10 @@ namespace ifsc.tcc.Portal.Domain.AreaModule
 
         private Area()
         { }
+
+        public Area(string name)
+        {
+            Name = name;
+        }
     }
 }

@@ -12,5 +12,10 @@ namespace ifsc.tcc.Portal.Domain.CourseModule
 
         private Course()
         { }
+
+        public Course(Area area)
+        {
+            Area = area;
+        }
     }
 }
