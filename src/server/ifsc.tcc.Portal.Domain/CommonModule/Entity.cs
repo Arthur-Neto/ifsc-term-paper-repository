@@ -5,7 +5,7 @@ namespace ifsc.tcc.Portal.Domain.CommonModule
 {
     public abstract class Entity : IEntity, IEquatable<Entity>
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         public override bool Equals(object obj)
         {

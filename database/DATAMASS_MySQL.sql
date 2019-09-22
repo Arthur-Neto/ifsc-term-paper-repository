@@ -8,6 +8,8 @@
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -17,76 +19,77 @@
 -- Dumping data for table `advisors`
 --
 
-INSERT INTO advisors VALUES (1,'alexandre.perin','123','Alexandre Perin');
-INSERT INTO advisors VALUES (2,'andre.savara','123','André Savara');
-
---
--- Dumping data for table `advisortypes`
---
-
-INSERT INTO advisortypes VALUES (2,'CoLeader');
-INSERT INTO advisortypes VALUES (1,'Leader');
+LOCK TABLES `advisors` WRITE;
+/*!40000 ALTER TABLE `advisors` DISABLE KEYS */;
+INSERT INTO `advisors` VALUES (1,'alexandre.perin','123','Alexandre Perin'),(2,'andre.savara','321','Andre Savara');
+/*!40000 ALTER TABLE `advisors` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `areas`
 --
 
-INSERT INTO areas VALUES (1,'Informática e Tecnologia');
+LOCK TABLES `areas` WRITE;
+/*!40000 ALTER TABLE `areas` DISABLE KEYS */;
+INSERT INTO `areas` VALUES (1,'Informática e Tecnologia');
+/*!40000 ALTER TABLE `areas` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO courses VALUES (1,1,'Ciência da Computação');
-
---
--- Dumping data for table `groupfiles`
---
-
-
---
--- Dumping data for table `groups`
---
-
-INSERT INTO groups VALUES (1,1);
-INSERT INTO groups VALUES (2,1);
-INSERT INTO groups VALUES (3,1);
-INSERT INTO groups VALUES (4,1);
-
---
--- Dumping data for table `groups_advisors`
---
-
-INSERT INTO groups_advisors VALUES (1,1,1);
-INSERT INTO groups_advisors VALUES (2,1,1);
-INSERT INTO groups_advisors VALUES (3,2,1);
+LOCK TABLES `courses` WRITE;
+/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,1,'Ciência da Computação');
+/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `keywords`
 --
 
+LOCK TABLES `keywords` WRITE;
+/*!40000 ALTER TABLE `keywords` DISABLE KEYS */;
+/*!40000 ALTER TABLE `keywords` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO students VALUES (1,1,'Arthur Neto','123456789','arthur.neto@ifsc.edu.br','123');
-INSERT INTO students VALUES (2,1,'Johnson Sadao','987654321','johnson.sadao@ifsc.edu.br','123');
-INSERT INTO students VALUES (3,2,'Victor Klann','24','victor.klann@ifsc.edu.br','123');
-INSERT INTO students VALUES (4,3,'Matheus Guimaraes','147258369','matheus.guima','123');
-INSERT INTO students VALUES (5,3,'Giovani Girardi','369852147','giovani.girardi','123');
-INSERT INTO students VALUES (6,4,'Lucas Chaves','1597534862','lucas.chaves','123');
-INSERT INTO students VALUES (7,4,'Matheus Medeiros','9513578426','matheus.medeiros','123');
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `termpapers`
 --
 
+LOCK TABLES `termpapers` WRITE;
+/*!40000 ALTER TABLE `termpapers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `termpapers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `termpapers_advisors`
+--
+
+LOCK TABLES `termpapers_advisors` WRITE;
+/*!40000 ALTER TABLE `termpapers_advisors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `termpapers_advisors` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `termpapers_keywords`
 --
 
+LOCK TABLES `termpapers_keywords` WRITE;
+/*!40000 ALTER TABLE `termpapers_keywords` DISABLE KEYS */;
+/*!40000 ALTER TABLE `termpapers_keywords` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -96,4 +99,4 @@ INSERT INTO students VALUES (7,4,'Matheus Medeiros','9513578426','matheus.medeir
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed
+-- Dump completed on 2019-09-22 15:04:59

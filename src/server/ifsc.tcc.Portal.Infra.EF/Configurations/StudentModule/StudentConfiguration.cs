@@ -16,29 +16,14 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.StudentModule
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Email)
-                .IsUnicode(false)
-                .HasMaxLength(50)
-                .IsRequired();
-
             builder.Property(x => x.Name)
                 .IsUnicode(true)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(x => x.Password)
-                .IsUnicode(false)
-                .HasMaxLength(200)
-                .IsRequired();
-
-            builder.Property(x => x.RegistrationNumber)
-                .IsUnicode(false)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.HasOne(x => x.Group)
+            builder.HasOne(x => x.TermPaper)
                 .WithMany()
-                .HasForeignKey(x => x.GroupID)
+                .HasForeignKey(x => x.TermPaperID)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }

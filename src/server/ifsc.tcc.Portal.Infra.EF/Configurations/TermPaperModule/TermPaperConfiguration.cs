@@ -28,33 +28,15 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.TermPaperModule
             builder.Property(x => x.DateEnd)
                 .HasColumnType("DATETIME");
 
-            builder.Property(x => x.StudentAName)
+            builder.Property(x => x.FileName)
                 .IsUnicode(true)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsRequired();
 
-            builder.Property(x => x.StudentBName)
-                .IsUnicode(true)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.AdvisorName)
-                .IsUnicode(true)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.Property(x => x.CoAdvisorName)
-                .IsUnicode(true)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.AreaName)
-                .IsUnicode(true)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.Property(x => x.CourseName)
-                .IsUnicode(true)
-                .HasMaxLength(50)
-                .IsRequired();
+            builder.HasOne(x => x.Course)
+                .WithMany()
+                .HasForeignKey(x => x.CourseID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.TermPaperKeywords)
                 .WithOne(x => x.TermPaper)
