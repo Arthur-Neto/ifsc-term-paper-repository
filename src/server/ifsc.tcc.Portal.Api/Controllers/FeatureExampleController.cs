@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using ifsc.tcc.Portal.Application.FeatureExampleModule;
 using ifsc.tcc.Portal.Application.FeatureExampleModule.Models.Commands;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ifsc.tcc.Portal.Api.Controllers
 {

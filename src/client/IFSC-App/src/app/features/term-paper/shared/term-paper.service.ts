@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { TermPaperAddCommand } from './term-paper.models';
 
 @Injectable({
@@ -20,7 +20,6 @@ export class TermPaperService {
     }
 
     public add(command: TermPaperAddCommand): Observable<boolean> {
-
         return this.http.post<boolean>(this.apiEndPoint, command).pipe();
     }
 }

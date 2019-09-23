@@ -2,6 +2,7 @@ import {
     COMMA,
     ENTER,
 } from '@angular/cdk/keycodes';
+import { HttpEventType } from '@angular/common/http';
 import {
     Component,
     ElementRef,
@@ -27,7 +28,8 @@ import {
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
-import { TermPaperService } from './shared/term-paper.service.js';
+import { FileManagerService } from '../../../shared/file-manager/file-manager.service.js';
+import { TermPaperService } from '../shared/term-paper.service.js';
 
 @Component({
     selector: 'term-paper-add',
@@ -45,6 +47,7 @@ export class TermPaperAddComponent implements OnInit {
     public hasCoAdvisor = false;
     public hasTwoStudents = false;
     public file: any;
+    public progress: any;
     public fileName: string;
     public fileUploadedShowError = false;
     public keywords: string[] = [];
@@ -58,6 +61,7 @@ export class TermPaperAddComponent implements OnInit {
 
     constructor(
         private termPaperService: TermPaperService,
+        private fileManagerService: FileManagerService,
         private router: Router,
         private fb: FormBuilder
     ) { }
@@ -74,7 +78,6 @@ export class TermPaperAddComponent implements OnInit {
             student1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
             student2: ['', [Validators.minLength(4), Validators.maxLength(50)]],
             keywords: [''],
-            file: ['', [Validators.required]],
         });
 
         this.filteredKeywords =
@@ -144,42 +147,37 @@ export class TermPaperAddComponent implements OnInit {
     }
 
     public onSubmit(termPaper: FormGroup) {
-        if (!this.file || !(this.file.type === 'application/pdf')) {
+        if (!this.file || !(this.file.type === 'application/pdf') || this.file.length === 0) {
             this.fileUploadedShowError = true;
             return;
         } else {
             this.fileUploadedShowError = false;
         }
-
         const command = termPaper.value;
-        this.fileToBase64(this.file)
-            .pipe()
-            .subscribe((result) => {
-                command.file = result;
-            });
+        command.fileName = this.file.name;
 
         this.termPaperService
             .add(command)
             .pipe(take(1))
             .subscribe(() => {
-                //
+                const formData = new FormData();
+                formData.append(this.file.name, this.file);
+
+                this.fileManagerService
+                    .upload(formData)
+                    .subscribe((event) => {
+                        if (event.type === HttpEventType.UploadProgress) {
+                            this.progress = Math.round(100 * event.loaded / event.total);
+                        }
+
+                        this.router.navigateByUrl('\home');
+                    });
             });
     }
 
     public onReset() {
         this.router.navigateByUrl('');
     }
-
-    private fileToBase64 = (file: any) => new Observable((observer) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            observer.next(reader.result);
-        };
-        reader.onerror = (error) => {
-            observer.error(error);
-        };
-    })
 
     private filterKeywords(value: string): string[] {
         const matches = value ? this.allKeywords.filter((s) => new RegExp(`^${ value }`, 'gi').test(s)) : this.allKeywords;

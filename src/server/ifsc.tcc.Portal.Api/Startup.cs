@@ -43,7 +43,7 @@ namespace ifsc.tcc.Portal.Api
                     options.AllowAnyMethod();
                 });
             });
-            services.AddDbContext<IFSCContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Example_Database")));
+            services.AddDbContext<IFSCContext>(options => options.UseMySql(Configuration.GetConnectionString("MYSQL")));
             services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
         }
 
