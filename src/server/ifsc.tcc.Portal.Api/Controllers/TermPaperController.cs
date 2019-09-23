@@ -9,7 +9,7 @@ namespace ifsc.tcc.Portal.Api.Controllers
     [Route("api/term-paper")]
     public class TermPaperController : ControllerBase
     {
-        private ITermPaperAppService _termPaperAppService;
+        private readonly ITermPaperAppService _termPaperAppService;
 
         public TermPaperController(
             ITermPaperAppService termPaperAppService)

@@ -2,6 +2,7 @@ import {
     COMMA,
     ENTER,
 } from '@angular/cdk/keycodes';
+import { HttpEventType } from '@angular/common/http';
 import {
     Component,
     ElementRef,
@@ -27,6 +28,7 @@ import {
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
+import { FileManagerService } from '../../../shared/file-manager/file-manager.service.js';
 import { TermPaperService } from '../shared/term-paper.service.js';
 
 @Component({
@@ -45,6 +47,7 @@ export class TermPaperAddComponent implements OnInit {
     public hasCoAdvisor = false;
     public hasTwoStudents = false;
     public file: any;
+    public progress: any;
     public fileName: string;
     public fileUploadedShowError = false;
     public keywords: string[] = [];
@@ -58,6 +61,7 @@ export class TermPaperAddComponent implements OnInit {
 
     constructor(
         private termPaperService: TermPaperService,
+        private fileManagerService: FileManagerService,
         private router: Router,
         private fb: FormBuilder
     ) { }
@@ -143,13 +147,12 @@ export class TermPaperAddComponent implements OnInit {
     }
 
     public onSubmit(termPaper: FormGroup) {
-        if (!this.file || !(this.file.type === 'application/pdf')) {
+        if (!this.file || !(this.file.type === 'application/pdf') || this.file.length === 0) {
             this.fileUploadedShowError = true;
             return;
         } else {
             this.fileUploadedShowError = false;
         }
-
         const command = termPaper.value;
         command.fileName = this.file.name;
 
@@ -157,7 +160,18 @@ export class TermPaperAddComponent implements OnInit {
             .add(command)
             .pipe(take(1))
             .subscribe(() => {
-                this.router.navigateByUrl('\home');
+                const formData = new FormData();
+                formData.append(this.file.name, this.file);
+
+                this.fileManagerService
+                    .upload(formData)
+                    .subscribe((event) => {
+                        if (event.type === HttpEventType.UploadProgress) {
+                            this.progress = Math.round(100 * event.loaded / event.total);
+                        }
+
+                        this.router.navigateByUrl('\home');
+                    });
             });
     }
 

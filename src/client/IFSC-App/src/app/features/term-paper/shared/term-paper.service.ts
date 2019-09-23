@@ -20,7 +20,6 @@ export class TermPaperService {
     }
 
     public add(command: TermPaperAddCommand): Observable<boolean> {
-
         return this.http.post<boolean>(this.apiEndPoint, command).pipe();
     }
 }
