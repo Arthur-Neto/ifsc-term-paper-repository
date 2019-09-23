@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace ifsc.tcc.Portal.Application.FileManagerModule
 {
     public interface IFileManagerAppService
     {
-        void UploadTermPaper(IFormFile file);
+        Task UploadTermPaper(IFormFile file);
     }
 
     public class FileManagerAppService : IFileManagerAppService
@@ -17,7 +18,7 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
         public FileManagerAppService()
         { }
 
-        public void UploadTermPaper(IFormFile file)
+        public async Task UploadTermPaper(IFormFile file)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
                     var fullPath = Path.Combine(newPath, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
                 }
             }

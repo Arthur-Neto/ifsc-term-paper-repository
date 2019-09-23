@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using ifsc.tcc.Portal.Application.FileManagerModule;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ifsc.tcc.Portal.Api.Controllers
@@ -9,38 +9,29 @@ namespace ifsc.tcc.Portal.Api.Controllers
     [Route("api/file-manager")]
     public class FileManagerController : ControllerBase
     {
-        public FileManagerController()
-        { }
+        private readonly IFileManagerAppService _fileManagerAppService;
+
+        public FileManagerController(
+            IFileManagerAppService fileManagerAppService)
+        {
+            _fileManagerAppService = fileManagerAppService;
+        }
 
         [HttpPost]
-        public IActionResult Upload()
+        public async Task<IActionResult> UploadTermPaper()
         {
+            var file = Request.Form.Files[0];
+
             try
             {
-                var file = Request.Form.Files[0];
-                string folderName = "TermPapers";
-                string webRootPath = Directory.GetCurrentDirectory();
-                string newPath = Path.Combine(webRootPath, folderName);
-                if (!Directory.Exists(newPath))
-                {
-                    Directory.CreateDirectory(newPath);
-                }
-                string fileName = "";
-                if (file.Length > 0)
-                {
-                    fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    string fullPath = Path.Combine(newPath, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                }
+                await _fileManagerAppService.UploadTermPaper(file);
 
-                return Ok(fileName);
+                return Ok(true);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                BadRequest(ex);
+                return null;
             }
         }
     }
