@@ -31,8 +31,15 @@ namespace ifsc.tcc.Portal.Api.Controllers
             catch (Exception ex)
             {
                 BadRequest(ex);
+
                 return null;
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadTermPaper([FromBody]string fileName)
+        {
+            return Ok(null);
         }
     }
 }

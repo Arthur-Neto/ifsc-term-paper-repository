@@ -1,0 +1,70 @@
+﻿using System.Threading.Tasks;
+using ifsc.tcc.Portal.Application.TermPaperModule.Models;
+using Nest;
+
+namespace ifsc.tcc.Portal.Application.ElasticModule
+{
+    public class IndexAppService
+    {
+        private readonly IElasticClient _esClient;
+
+        public IndexAppService(IElasticClient esClient)
+        {
+            _esClient = esClient;
+        }
+
+        public async Task<CreateIndexResponse> CreateArticleIndex()
+        {
+            await _esClient.Indices.DeleteAsync("termPaper_index");
+
+            var indexResponse = await _esClient.Indices.CreateAsync("termPaper_index", c => c
+                .Settings(s => s
+                    .Analysis(a => a
+                        .Analyzers(ad => ad
+                            .Custom("windows_path_hierarchy_analyzer", ca => ca
+                                .Tokenizer("windows_path_hierarchy_tokenizer")
+                            )
+                        )
+                        .Tokenizers(t => t
+                            .PathHierarchy("windows_path_hierarchy_tokenizer", ph => ph
+                                .Delimiter('\\')
+                            )
+                        )
+                    )
+                )
+                .Map<TermPaperElasticModel>(mp => mp
+                    .AutoMap()
+                    .Properties(ps => ps
+                        .Text(s => s
+                            .Name(n => n.Path)
+                            .Analyzer("windows_path_hierarchy_analyzer")
+                        )
+                        .Object<Attachment>(a => a
+                            .Name(n => n.Attachment)
+                            .AutoMap()
+                        )
+                    )
+                )
+            );
+
+
+            await _esClient.Ingest.PutPipelineAsync("termPaper_pipeline", p => p
+                .Processors(pr => pr
+                    .Attachment<TermPaperElasticModel>(a => a
+                      .Field(f => f.Content)
+                      .TargetField(f => f.Attachment)
+                    )
+                )
+            );
+
+            return indexResponse;
+        }
+
+        public async Task<GetMappingResponse> GetMappedIndexes()
+        {
+            var mappingResponse = await _esClient.Indices.GetMappingAsync<TermPaperElasticModel>();
+
+            return mappingResponse;
+        }
+    }
+}

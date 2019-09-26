@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ifsc.tcc.Portal.Application.TermPaperModule.Models;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
@@ -10,12 +11,14 @@ using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
+using Nest;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule
 {
     public interface ITermPaperAppService
     {
         Task<bool> AddAsync(TermPaperAddCommand command);
+        Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query);
     }
 
     public class TermPaperAppService : BaseAppService<ITermPaperRepository>, ITermPaperAppService
@@ -26,7 +29,10 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
         private readonly Lazy<ICourseRepository> _courseRepository;
         private readonly Lazy<IAreaRepository> _areaRepository;
 
+        private readonly Lazy<IElasticClient> _esClient;
+
         public TermPaperAppService(
+            Lazy<IElasticClient> esClient,
             Lazy<IStudentRepository> studentRepository,
             Lazy<IKeywordRepository> keywordRepository,
             Lazy<IAdvisorRepository> advisorRepository,
@@ -42,6 +48,22 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             _advisorRepository = advisorRepository;
             _courseRepository = courseRepository;
             _areaRepository = areaRepository;
+
+            _esClient = esClient;
+        }
+
+        public async Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query)
+        {
+            var searchResponse = await _esClient.Value.SearchAsync<TermPaperElasticModel>(s => s
+                .Query(q => q
+                    .Match(m => m
+                        .Field(a => a.Content)
+                        .Query(query)
+                    )
+                )
+            );
+
+            return searchResponse;
         }
 
         public async Task<bool> AddAsync(TermPaperAddCommand command)
