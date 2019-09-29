@@ -19,6 +19,10 @@
         "chooseFile": "Selecione o arquivo",
         "noFileSelected": "Nenhum arquivo selecionado",
         "save": "Salvar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "searchBy": "Pesquisar por",
+        "new": "Novo",
+        "delete": "Deletar",
+        "download": "Download"
     }
 }

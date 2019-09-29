@@ -11,6 +11,7 @@ import {
 export class HomeComponent implements OnInit {
 
     public newRouteUrl = 'term-paper/add';
+    public termPaperFiles: any;
 
     constructor() { }
 

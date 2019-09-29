@@ -1,6 +1,6 @@
 <mat-form-field appearance="outline">
-    <mat-label>Pesquisar por...</mat-label>
-    <input matInput>
+    <mat-label>{{resources.labels.searchBy}}</mat-label>
+    <input matInput (keyup)="onKeyUp($event)">
 </mat-form-field>
 
 <div class="ifsc-searchbar__actions">
@@ -9,11 +9,11 @@
         disableRipple
         (click)="onNew()">
         <mat-icon svgIcon="add"></mat-icon>
-        Novo
+        {{resources.labels.new}}
     </button>
     <button mat-button disableRipple>
         <mat-icon svgIcon="delete"></mat-icon>
-        Deletar
+        {{resources.labels.delete}}
     </button>
 </div>
 <hr>

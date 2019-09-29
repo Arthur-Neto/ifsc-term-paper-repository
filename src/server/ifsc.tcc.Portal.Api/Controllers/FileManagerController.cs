@@ -37,9 +37,24 @@ namespace ifsc.tcc.Portal.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DownloadTermPaper([FromBody]string fileName)
+        [Route("download")]
+        public async Task<IActionResult> DownloadTermPaper([FromQuery]string fileName)
         {
-            return Ok(null);
+            return Ok(await _fileManagerAppService.DownloadTermPaper(fileName));
+        }
+
+        [HttpGet]
+        [Route("get-all")]
+        public async Task<IActionResult> GetAllTermPapers()
+        {
+            return Ok(await _fileManagerAppService.GetAllTermPapers());
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> SearchTermPapers([FromQuery]string query)
+        {
+            return Ok(await _fileManagerAppService.SearchTermPaper(query));
         }
     }
 }
