@@ -5,10 +5,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { take } from 'rxjs/operators';
-
 import resources from '../../../assets/resources/resources-ptBR.json';
-import { FileManagerService } from '../file-manager/file-manager.service.js';
 
 @Component({
     selector: 'ifsc-searchbar',
@@ -19,21 +16,14 @@ export class IfscSearchbarComponent implements OnInit {
 
     public readonly resources = resources;
 
-    @Input() termPaperFiles: any;
     @Input() newRouteUrl: string;
 
     constructor(
-        private router: Router,
-        private fileManagerService: FileManagerService
+        private router: Router
     ) { }
 
     public ngOnInit() {
-        this.fileManagerService
-            .getAll()
-            .pipe(take(1))
-            .subscribe((result: any) => {
-                this.termPaperFiles = result;
-            });
+
     }
 
     public onNew() {
@@ -43,11 +33,11 @@ export class IfscSearchbarComponent implements OnInit {
     public onKeyUp(event: any) {
         const query: string = event.target.value;
 
-        this.fileManagerService
-            .getByQuery(query)
-            .pipe(take(1))
-            .subscribe((result: any) => {
-                this.termPaperFiles = result;
-            });
+        // this.fileManagerService
+        //     .getByQuery(query)
+        //     .pipe(take(1))
+        //     .subscribe((result: any) => {
+        //         this.termPaperFiles = result;
+        //     });
     }
 }

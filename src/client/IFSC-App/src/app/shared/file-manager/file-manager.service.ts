@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import {
+    Observable,
+    of,
+} from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
@@ -11,6 +14,233 @@ import { environment } from '../../../environments/environment';
 export class FileManagerService {
 
     private apiEndPoint: string;
+
+    private readonly termPapers: any[] = [
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        },
+        {
+            title: 'Repositório de TCCs',
+            subTitle: 'Ciência da Computação',
+            studentA: 'Arthur Santos Neto',
+            studentB: 'Johnson Sadao',
+            advisor: 'Alexandre Perin',
+            coAdvisor: '-',
+        }
+    ];
 
     public constructor(
         private http: HttpClient,
@@ -27,7 +257,9 @@ export class FileManagerService {
     }
 
     public getAll(): Observable<any> {
-        return this.http.get<any>(`${ this.apiEndPoint }/get-all`, { reportProgress: true }).pipe();
+        // return this.http.get<any>(`${ this.apiEndPoint }/get-all`, { reportProgress: true }).pipe();
+
+        return of(this.termPapers);
     }
 
     public getByQuery(query: string): Observable<any> {
