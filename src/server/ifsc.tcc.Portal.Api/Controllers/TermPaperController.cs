@@ -35,12 +35,5 @@ namespace ifsc.tcc.Portal.Api.Controllers
         {
             return Ok(await _termPaperAppService.SearchAsync(query));
         }
-
-        [HttpGet]
-        [Route("check")]
-        public async Task<IActionResult> Check()
-        {
-            return Ok(await _termPaperAppService.Check());
-        }
     }
 }
