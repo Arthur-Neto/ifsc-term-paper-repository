@@ -28,7 +28,6 @@ import {
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
-import { FileManagerService } from '../../../shared/file-manager/file-manager.service.js';
 import { TermPaperService } from '../shared/term-paper.service.js';
 
 @Component({
@@ -61,7 +60,6 @@ export class TermPaperAddComponent implements OnInit {
 
     constructor(
         private termPaperService: TermPaperService,
-        private fileManagerService: FileManagerService,
         private router: Router,
         private fb: FormBuilder
     ) { }
@@ -153,25 +151,31 @@ export class TermPaperAddComponent implements OnInit {
         } else {
             this.fileUploadedShowError = false;
         }
-        const command = termPaper.value;
-        command.fileName = this.file.name;
+
+        const fileToUpload = this.file as File;
+        const formData = new FormData();
+        formData.append('title', termPaper.value.title);
+        formData.append('area', termPaper.value.area);
+        formData.append('course', termPaper.value.course);
+        formData.append('dateBegin', new Date(termPaper.value.dateBegin).toUTCString());
+        formData.append('dateEnd', new Date(termPaper.value.dateEnd).toUTCString());
+        formData.append('advisor', termPaper.value.advisor);
+        formData.append('coAdvisor', termPaper.value.coAdvisor);
+        formData.append('student1', termPaper.value.student1);
+        formData.append('student2', termPaper.value.student2);
+        formData.append('keywords', termPaper.value.keywords);
+        formData.append('file', fileToUpload, fileToUpload.name);
+        formData.append('fileName', fileToUpload.name);
 
         this.termPaperService
-            .add(command)
+            .add(formData)
             .pipe(take(1))
-            .subscribe(() => {
-                const formData = new FormData();
-                formData.append(this.file.name, this.file);
+            .subscribe((event) => {
+                if (event.type === HttpEventType.UploadProgress) {
+                    this.progress = Math.round(100 * event.loaded / event.total);
+                }
 
-                this.fileManagerService
-                    .upload(formData)
-                    .subscribe((event) => {
-                        if (event.type === HttpEventType.UploadProgress) {
-                            this.progress = Math.round(100 * event.loaded / event.total);
-                        }
-
-                        this.router.navigateByUrl('\home');
-                    });
+                this.router.navigateByUrl('\home');
             });
     }
 

@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { IfscNavbarModule } from './ifsc-navbar/ifsc-navbar.module';
 import { IfscSearchbarModule } from './ifsc-searchbar/ifsc-searchbar.module';
+import { IfscTermPaperCardModule } from './ifsc-term-paper-card/ifsc-term-paper-card.module';
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MaterialModule } from './material/material.module';
     ],
     exports: [
         MaterialModule,
+        IfscTermPaperCardModule,
         IfscNavbarModule,
         IfscSearchbarModule,
     ],

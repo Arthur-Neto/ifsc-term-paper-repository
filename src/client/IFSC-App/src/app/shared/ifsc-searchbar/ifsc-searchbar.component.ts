@@ -1,30 +1,36 @@
 import {
     Component,
+    EventEmitter,
     Input,
     OnInit,
+    Output,
 } from '@angular/core';
-import {
-    ActivatedRoute,
-    Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
+
+import resources from '../../../assets/resources/resources-ptBR.json';
 
 @Component({
     selector: 'ifsc-searchbar',
     templateUrl: './ifsc-searchbar.component.html',
     styleUrls: ['./ifsc-searchbar.component.scss']
 })
-export class IfscSearchbarComponent implements OnInit {
+export class IfscSearchbarComponent {
+
+    public readonly resources = resources;
 
     @Input() newRouteUrl: string;
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-    ) { }
+    @Output() query = new EventEmitter<string>();
 
-    ngOnInit() { }
+    constructor(
+        private router: Router
+    ) { }
 
     public onNew() {
         this.router.navigate([this.newRouteUrl]);
+    }
+
+    public onKeyUp(event: any) {
+        this.query.emit(event.target.value);
     }
 }

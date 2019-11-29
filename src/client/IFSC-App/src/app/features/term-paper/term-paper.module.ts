@@ -5,7 +5,6 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 
-import { FileManagerService } from '../../shared/file-manager/file-manager.service';
 import { MaterialModule } from '../../shared/material/material.module';
 import { TermPaperAddComponent } from './term-paper-add/term-paper-add.component';
 import { TermPaperRoutingModule } from './term-paper-routing.module';
@@ -21,8 +20,6 @@ import { TermPaperRoutingModule } from './term-paper-routing.module';
         ReactiveFormsModule,
         TermPaperRoutingModule
     ],
-    providers: [
-        FileManagerService,
-    ]
+    providers: []
 })
 export class TermPaperModule { }

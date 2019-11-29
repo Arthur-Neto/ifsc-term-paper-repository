@@ -4,21 +4,21 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
-import { FeatureExampleComponent } from './feature-example.component';
+import { IfscTermPaperCardComponent } from './ifsc-term-paper-card.component';
 
-describe('FeatureExampleComponent', () => {
-    let component: FeatureExampleComponent;
-    let fixture: ComponentFixture<FeatureExampleComponent>;
+describe('IfscTermPaperCardComponent', () => {
+    let component: IfscTermPaperCardComponent;
+    let fixture: ComponentFixture<IfscTermPaperCardComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [FeatureExampleComponent]
+            declarations: [IfscTermPaperCardComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FeatureExampleComponent);
+        fixture = TestBed.createComponent(IfscTermPaperCardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
 {
@@ -16,6 +17,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
         public string Area { get; set; }
         public string Course { get; set; }
         public string FileName { get; set; }
+        public IFormFile File { get; set; }
         public IEnumerable<string> Keywords { get; set; }
     }
 
@@ -40,7 +42,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
             RuleFor(x => x.Student2)
                 .NotEmpty()
                 .Length(4, 50)
-                .When(x => x.Student2.Length > 0);
+                .When(x => x.Student2 != null);
 
             RuleFor(x => x.Advisor)
                 .NotEmpty()
@@ -49,7 +51,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
             RuleFor(x => x.CoAdvisor)
                 .NotEmpty()
                 .Length(4, 50)
-                .When(x => x.CoAdvisor.Length > 0);
+                .When(x => x.CoAdvisor != null);
 
             RuleFor(x => x.Area)
                 .NotEmpty()

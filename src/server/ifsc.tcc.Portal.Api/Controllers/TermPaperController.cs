@@ -18,9 +18,22 @@ namespace ifsc.tcc.Portal.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync(TermPaperAddCommand command)
+        public async Task<IActionResult> AddAsync([FromForm]TermPaperAddCommand command)
         {
             return Ok(await _termPaperAppService.AddAsync(command));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
+        {
+            return Ok(await _termPaperAppService.GetAsync());
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> SearchAsync([FromQuery]string query)
+        {
+            return Ok(await _termPaperAppService.SearchAsync(query));
         }
     }
 }

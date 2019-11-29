@@ -24,15 +24,22 @@ namespace ifsc.tcc.Portal.Api.Controllers
 
             try
             {
-                await _fileManagerAppService.UploadTermPaper(file);
+                await _fileManagerAppService.UploadTermPaperAsync(file);
 
                 return Ok(true);
             }
             catch (Exception ex)
             {
                 BadRequest(ex);
+
                 return null;
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadTermPaper([FromQuery]string fileName)
+        {
+            return Ok(await _fileManagerAppService.DownloadTermPaperAsync(fileName));
         }
     }
 }

@@ -4,8 +4,8 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using ifsc.tcc.Portal.Api.DependencyResolution;
 using ifsc.tcc.Portal.Api.Filters;
-using ifsc.tcc.Portal.Application.FeatureExampleModule.Models.Commands;
-using ifsc.tcc.Portal.Application.FeatureExampleModule.Profiles;
+using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
+using ifsc.tcc.Portal.Application.TermPaperModule.Profiles;
 using ifsc.tcc.Portal.Infra.Data.EF.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +32,7 @@ namespace ifsc.tcc.Portal.Api
                     config.Filters.Add(new CheckInvalidIdOnRouteFilterAttribute());
                 })
                 .AddJsonFormatters()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FeatureExampleAddCommandCommandValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<TermPaperAddCommandCommandValidator>());
 
             services.AddCors(c =>
             {
@@ -44,7 +44,7 @@ namespace ifsc.tcc.Portal.Api
                 });
             });
             services.AddDbContext<IFSCContext>(options => options.UseMySql(Configuration.GetConnectionString("MYSQL")));
-            services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(TermPaperProfile)));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

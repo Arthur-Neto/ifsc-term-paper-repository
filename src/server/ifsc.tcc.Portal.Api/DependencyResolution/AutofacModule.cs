@@ -5,6 +5,7 @@ using ifsc.tcc.Portal.Domain.CommonModule;
 using ifsc.tcc.Portal.Infra.Data.EF.Context;
 using ifsc.tcc.Portal.Infra.Data.EF.Repositories;
 using ifsc.tcc.Portal.Infra.Data.EF.UnitOfWork;
+using Nest;
 using Module = Autofac.Module;
 
 namespace ifsc.tcc.Portal.Api.DependencyResolution
@@ -18,6 +19,10 @@ namespace ifsc.tcc.Portal.Api.DependencyResolution
             var repositoriesImplementations = Assembly.GetAssembly(typeof(GenericRepository<>));
 
             builder.RegisterType<UnitOfWork>()
+                    .AsImplementedInterfaces()
+                    .InstancePerLifetimeScope();
+
+            builder.RegisterType<ElasticClient>()
                     .AsImplementedInterfaces()
                     .InstancePerLifetimeScope();
 
