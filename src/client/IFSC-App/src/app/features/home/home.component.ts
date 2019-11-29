@@ -5,7 +5,7 @@ import {
 
 import { take } from 'rxjs/operators';
 
-import { FileManagerService } from '../../shared/file-manager/file-manager.service';
+import { TermPaperService } from '../term-paper/shared/term-paper.service';
 
 @Component({
     selector: 'home',
@@ -18,11 +18,11 @@ export class HomeComponent implements OnInit {
     public termPaperFiles: any;
 
     constructor(
-        private fileManagerService: FileManagerService
+        private termPaperService: TermPaperService
     ) { }
 
     public ngOnInit() {
-        this.fileManagerService
+        this.termPaperService
             .getAll()
             .pipe(take(1))
             .subscribe((result: any) => {

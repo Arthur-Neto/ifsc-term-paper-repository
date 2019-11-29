@@ -21,4 +21,8 @@ export class TermPaperService {
     public add(command: any): Observable<any> {
         return this.http.post<boolean>(this.apiEndPoint, command, { reportProgress: true }).pipe();
     }
+
+    public getAll(): Observable<any> {
+        return this.http.get<any>(this.apiEndPoint).pipe();
+    }
 }

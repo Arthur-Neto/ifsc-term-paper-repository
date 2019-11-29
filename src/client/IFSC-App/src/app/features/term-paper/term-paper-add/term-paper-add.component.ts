@@ -28,7 +28,6 @@ import {
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
-import { FileManagerService } from '../../../shared/file-manager/file-manager.service.js';
 import { TermPaperService } from '../shared/term-paper.service.js';
 
 @Component({
@@ -61,7 +60,6 @@ export class TermPaperAddComponent implements OnInit {
 
     constructor(
         private termPaperService: TermPaperService,
-        private fileManagerService: FileManagerService,
         private router: Router,
         private fb: FormBuilder
     ) { }

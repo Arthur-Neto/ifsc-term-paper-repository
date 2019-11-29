@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ifsc.tcc.Portal.Application.ElasticModule;
 using ifsc.tcc.Portal.Application.FileManagerModule;
+using ifsc.tcc.Portal.Application.FileManagerModule.Models;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
@@ -18,6 +20,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
     public interface ITermPaperAppService
     {
         Task<bool> AddAsync(TermPaperAddCommand command);
+        Task<IEnumerable<TermPaperFileModel>> GetAsync();
     }
 
     public class TermPaperAppService : BaseAppService<ITermPaperRepository>, ITermPaperAppService
@@ -74,9 +77,47 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
                 await _indexAppService.CreateTermPaperIndexAsync();
             }
 
-            await _fileManagerAppService.UploadTermPaperAsync(command.File);
+            var fullPath = await _fileManagerAppService.UploadTermPaperAsync(command.File);
+            await _indexAppService.IndexTermPaperFileAsync(fullPath);
 
             return await UnitOfWork.Value.CommitAsync() > 0;
+        }
+
+        public async Task<IEnumerable<TermPaperFileModel>> GetAsync()
+        {
+            var listModel = new List<TermPaperFileModel>();
+
+            var fileNames = _fileManagerAppService.GetAllTermPapers();
+            foreach (var fileName in fileNames.AsParallel())
+            {
+                var termPaper = await Repository.GetByFileName(fileName);
+                var students = await _studentRepository.Value.GetByTermPaperID(termPaper.ID);
+
+                var model = new TermPaperFileModel()
+                {
+                    Title = termPaper.Title,
+                    SubTitle = termPaper.Course.Name,
+                };
+
+                foreach (var advisor in termPaper.TermPaperAdvisors)
+                {
+                    if (advisor.AdvisorType == AdvisorType.Leader)
+                    {
+                        model.Advisor = advisor.Advisor.Name;
+                    }
+                    else
+                    {
+                        model.CoAdvisor = advisor.Advisor.Name;
+                    }
+                }
+
+                model.StudentA = students[0].Name;
+                model.StudentB = students[1]?.Name ?? "-";
+
+                listModel.Add(model);
+            }
+
+            return listModel;
         }
 
         private async Task HandleCourse(TermPaperAddCommand command, TermPaper termPaper)
