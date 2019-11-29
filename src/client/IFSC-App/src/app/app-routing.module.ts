@@ -5,7 +5,6 @@ import {
 } from '@angular/router';
 
 import { HomeComponent } from './features/home/home.component';
-import { TermPaperAddComponent } from './features/term-paper/term-paper-add/term-paper-add.component';
 
 const routes: Routes = [
     {
