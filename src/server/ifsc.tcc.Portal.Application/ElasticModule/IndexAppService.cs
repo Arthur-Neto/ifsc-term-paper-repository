@@ -1,10 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models;
 using Nest;
 
 namespace ifsc.tcc.Portal.Application.ElasticModule
 {
-    public class IndexAppService
+    public interface IIndexAppService
+    {
+        Task<CreateIndexResponse> CreateTermPaperIndexAsync();
+        Task<bool> IsIndexCreatedAsync(string indexName);
+        Task<IndexResponse> IndexTermPaperFileAsync(string filePath);
+    }
+
+    public class IndexAppService : IIndexAppService
     {
         private readonly IElasticClient _esClient;
 
@@ -13,10 +22,8 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
             _esClient = esClient;
         }
 
-        public async Task<CreateIndexResponse> CreateArticleIndex()
+        public async Task<CreateIndexResponse> CreateTermPaperIndexAsync()
         {
-            await _esClient.Indices.DeleteAsync("termPaper_index");
-
             var indexResponse = await _esClient.Indices.CreateAsync("termPaper_index", c => c
                 .Settings(s => s
                     .Analysis(a => a
@@ -60,11 +67,27 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
             return indexResponse;
         }
 
-        public async Task<GetMappingResponse> GetMappedIndexes()
+        public async Task<bool> IsIndexCreatedAsync(string indexName)
         {
-            var mappingResponse = await _esClient.Indices.GetMappingAsync<TermPaperElasticModel>();
+            var index = await _esClient.Indices.ExistsAsync(indexName);
 
-            return mappingResponse;
+            return index.Exists;
+        }
+
+        public async Task<IndexResponse> IndexTermPaperFileAsync(string filePath)
+        {
+            var base64File = Convert.ToBase64String(File.ReadAllBytes(filePath));
+            var indexReturn = await _esClient.IndexAsync(new TermPaperElasticModel
+            {
+                Path = filePath,
+                Content = base64File
+            }, i => i
+                .Index("termPaper_index")
+                .Pipeline("termPaper_pipeline")
+                .Timeout("5m")
+            );
+
+            return indexReturn;
         }
     }
 }

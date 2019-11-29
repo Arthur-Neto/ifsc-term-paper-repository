@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using ifsc.tcc.Portal.Application.ElasticModule;
 using ifsc.tcc.Portal.Application.FileManagerModule.Models;
-using ifsc.tcc.Portal.Application.TermPaperModule.Models;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
@@ -15,36 +15,36 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
 {
     public interface IFileManagerAppService
     {
-        Task<IndexResponse> UploadTermPaper(IFormFile file);
-        Task<IndexResponse> DownloadTermPaper(string fileName);
-        Task<IEnumerable<TermPaperFileModel>> GetAllTermPapers();
-        Task<IEnumerable<TermPaperFileModel>> SearchTermPaper(string query);
+        Task<IndexResponse> UploadTermPaperAsync(IFormFile file);
+        Task<IndexResponse> DownloadTermPaperAsync(string fileName);
+        Task<IEnumerable<TermPaperFileModel>> GetAllTermPapersAsync();
+        Task<IEnumerable<TermPaperFileModel>> SearchTermPaperAsync(string query);
     }
 
     public class FileManagerAppService : IFileManagerAppService
     {
         private readonly string TERM_PAPERS_FOLDER = "TermPapers";
 
-        private readonly IElasticClient _esClient;
         private readonly Lazy<ITermPaperRepository> _termPaperRepository;
         private readonly Lazy<IStudentRepository> _studentRepository;
+        private readonly Lazy<IIndexAppService> _indexAppService;
 
         public FileManagerAppService(
-            IElasticClient esClient,
+            Lazy<IIndexAppService> indexAppService,
             Lazy<ITermPaperRepository> termPaperRepository,
             Lazy<IStudentRepository> studentRepository)
         {
-            _esClient = esClient;
             _termPaperRepository = termPaperRepository;
             _studentRepository = studentRepository;
+            _indexAppService = indexAppService;
         }
 
-        public Task<IndexResponse> DownloadTermPaper(string fileName)
+        public Task<IndexResponse> DownloadTermPaperAsync(string fileName)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<TermPaperFileModel>> GetAllTermPapers()
+        public async Task<IEnumerable<TermPaperFileModel>> GetAllTermPapersAsync()
         {
             var fileNames = Directory.GetFiles(TERM_PAPERS_FOLDER, "*.pdf", SearchOption.TopDirectoryOnly);
             var listModel = new List<TermPaperFileModel>();
@@ -81,12 +81,12 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
             return listModel;
         }
 
-        public Task<IEnumerable<TermPaperFileModel>> SearchTermPaper(string query)
+        public Task<IEnumerable<TermPaperFileModel>> SearchTermPaperAsync(string query)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IndexResponse> UploadTermPaper(IFormFile file)
+        public async Task<IndexResponse> UploadTermPaperAsync(IFormFile file)
         {
             try
             {
@@ -110,16 +110,7 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
                     }
                 }
 
-                var base64File = Convert.ToBase64String(File.ReadAllBytes(fullPath));
-                var indexReturn = await _esClient.IndexAsync(new TermPaperElasticModel
-                {
-                    Path = fullPath,
-                    Content = base64File
-                }, i => i
-                    .Index("termPaper_index")
-                    .Pipeline("termPaper_pipeline")
-                    .Timeout("5m")
-                );
+                var indexReturn = await _indexAppService.Value.IndexTermPaperFileAsync(fullPath);
 
                 return indexReturn;
             }

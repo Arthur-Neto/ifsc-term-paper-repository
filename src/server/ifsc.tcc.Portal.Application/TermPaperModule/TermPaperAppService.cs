@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using ifsc.tcc.Portal.Application.TermPaperModule.Models;
+using ifsc.tcc.Portal.Application.ElasticModule;
+using ifsc.tcc.Portal.Application.FileManagerModule;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
@@ -11,14 +12,12 @@ using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
-using Nest;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule
 {
     public interface ITermPaperAppService
     {
         Task<bool> AddAsync(TermPaperAddCommand command);
-        Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query);
     }
 
     public class TermPaperAppService : BaseAppService<ITermPaperRepository>, ITermPaperAppService
@@ -29,10 +28,10 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
         private readonly Lazy<ICourseRepository> _courseRepository;
         private readonly Lazy<IAreaRepository> _areaRepository;
 
-        private readonly Lazy<IElasticClient> _esClient;
+        private readonly IIndexAppService _indexAppService;
+        private readonly IFileManagerAppService _fileManagerAppService;
 
         public TermPaperAppService(
-            Lazy<IElasticClient> esClient,
             Lazy<IStudentRepository> studentRepository,
             Lazy<IKeywordRepository> keywordRepository,
             Lazy<IAdvisorRepository> advisorRepository,
@@ -40,6 +39,8 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             Lazy<IAreaRepository> areaRepository,
             Lazy<IUnitOfWork> unitOfWork,
             Lazy<IMapper> mapper,
+            IIndexAppService indexAppService,
+            IFileManagerAppService fileManagerAppService,
             ITermPaperRepository repository)
             : base(unitOfWork, mapper, repository)
         {
@@ -49,21 +50,8 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             _courseRepository = courseRepository;
             _areaRepository = areaRepository;
 
-            _esClient = esClient;
-        }
-
-        public async Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query)
-        {
-            var searchResponse = await _esClient.Value.SearchAsync<TermPaperElasticModel>(s => s
-                .Query(q => q
-                    .Match(m => m
-                        .Field(a => a.Content)
-                        .Query(query)
-                    )
-                )
-            );
-
-            return searchResponse;
+            _indexAppService = indexAppService;
+            _fileManagerAppService = fileManagerAppService;
         }
 
         public async Task<bool> AddAsync(TermPaperAddCommand command)
@@ -79,6 +67,14 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             await HandleAdvisors(command, termPaper);
 
             await HandleStudents(command, termPaper);
+
+            var isIndexed = await _indexAppService.IsIndexCreatedAsync("termPaper_index");
+            if (!isIndexed)
+            {
+                await _indexAppService.CreateTermPaperIndexAsync();
+            }
+
+            await _fileManagerAppService.UploadTermPaperAsync(command.File);
 
             return await UnitOfWork.Value.CommitAsync() > 0;
         }
