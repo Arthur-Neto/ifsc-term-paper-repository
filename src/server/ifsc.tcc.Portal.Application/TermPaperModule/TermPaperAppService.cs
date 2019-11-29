@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ifsc.tcc.Portal.Application.ElasticModule;
 using ifsc.tcc.Portal.Application.FileManagerModule;
 using ifsc.tcc.Portal.Application.FileManagerModule.Models;
-using ifsc.tcc.Portal.Application.TermPaperModule.Models;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
@@ -15,7 +15,6 @@ using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
-using Nest;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule
 {
@@ -23,7 +22,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
     {
         Task<bool> AddAsync(TermPaperAddCommand command);
         Task<IEnumerable<TermPaperFileModel>> GetAsync();
-        Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query);
+        Task<IEnumerable<TermPaperFileModel>> SearchAsync(string query);
     }
 
     public class TermPaperAppService : BaseAppService<ITermPaperRepository>, ITermPaperAppService
@@ -33,12 +32,14 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
         private readonly Lazy<IAdvisorRepository> _advisorRepository;
         private readonly Lazy<ICourseRepository> _courseRepository;
         private readonly Lazy<IAreaRepository> _areaRepository;
-
-        private readonly IIndexAppService _indexAppService;
-        private readonly IFileManagerAppService _fileManagerAppService;
-        private readonly ISearchAppService _searchAppService;
+        private readonly Lazy<IIndexAppService> _indexAppService;
+        private readonly Lazy<ISearchAppService> _searchAppService;
+        private readonly Lazy<IFileManagerAppService> _fileManagerAppService;
 
         public TermPaperAppService(
+            Lazy<IIndexAppService> indexAppService,
+            Lazy<IFileManagerAppService> fileManagerAppService,
+            Lazy<ISearchAppService> searchAppService,
             Lazy<IStudentRepository> studentRepository,
             Lazy<IKeywordRepository> keywordRepository,
             Lazy<IAdvisorRepository> advisorRepository,
@@ -46,9 +47,6 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             Lazy<IAreaRepository> areaRepository,
             Lazy<IUnitOfWork> unitOfWork,
             Lazy<IMapper> mapper,
-            IIndexAppService indexAppService,
-            IFileManagerAppService fileManagerAppService,
-            ISearchAppService searchAppService,
             ITermPaperRepository repository)
             : base(unitOfWork, mapper, repository)
         {
@@ -77,23 +75,46 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
 
             await HandleStudents(command, termPaper);
 
-            var isIndexed = await _indexAppService.IsIndexCreatedAsync("termPaper_index");
+            var isIndexed = await _indexAppService.Value.IsIndexCreatedAsync("term-paper_index");
             if (!isIndexed)
             {
-                await _indexAppService.CreateTermPaperIndexAsync();
+                await _indexAppService.Value.CreateTermPaperIndexAsync();
             }
 
-            var fullPath = await _fileManagerAppService.UploadTermPaperAsync(command.File);
-            await _indexAppService.IndexTermPaperFileAsync(fullPath);
+            var fullPath = await _fileManagerAppService.Value.UploadTermPaperAsync(command.File);
+            await _indexAppService.Value.IndexTermPaperFileAsync(fullPath);
 
             return await UnitOfWork.Value.CommitAsync() > 0;
         }
 
         public async Task<IEnumerable<TermPaperFileModel>> GetAsync()
         {
+            var fileNames = _fileManagerAppService.Value.GetAllTermPapers();
+            var listModel = await GetModelByFileNames(fileNames);
+
+            return listModel;
+        }
+
+        public async Task<IEnumerable<TermPaperFileModel>> SearchAsync(string query)
+        {
+            var results = await _searchAppService.Value.SearchAsync(query);
+
+            var fileNames = new List<string>();
+            foreach (var hit in results.Hits)
+            {
+                fileNames.Add(hit.Source.Path);
+            }
+
+            fileNames = fileNames.Select(Path.GetFileName).ToList();
+            var listModel = await GetModelByFileNames(fileNames);
+
+            return listModel;
+        }
+
+        private async Task<IEnumerable<TermPaperFileModel>> GetModelByFileNames(IEnumerable<string> fileNames)
+        {
             var listModel = new List<TermPaperFileModel>();
 
-            var fileNames = _fileManagerAppService.GetAllTermPapers();
             foreach (var fileName in fileNames.AsParallel())
             {
                 var termPaper = await Repository.GetByFileName(fileName);
@@ -117,18 +138,24 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
                     }
                 }
 
-                model.StudentA = students[0].Name;
-                model.StudentB = students[1]?.Name ?? "-";
+                model.StudentB = "-";
+
+                foreach (var student in students)
+                {
+                    if (string.IsNullOrWhiteSpace(model.StudentA))
+                    {
+                        model.StudentA = student.Name;
+                    }
+                    else
+                    {
+                        model.StudentB = student.Name;
+                    }
+                }
 
                 listModel.Add(model);
             }
 
             return listModel;
-        }
-
-        public async Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query)
-        {
-            return await _searchAppService.SearchAsync(query);
         }
 
         private async Task HandleCourse(TermPaperAddCommand command, TermPaper termPaper)

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
             .search(query)
             .pipe(take(1))
             .subscribe((result: any) => {
-                console.log(result);
+                this.termPaperFiles = result;
             });
     }
 }

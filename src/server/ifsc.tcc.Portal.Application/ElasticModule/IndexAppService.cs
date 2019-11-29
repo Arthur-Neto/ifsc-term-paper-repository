@@ -24,7 +24,7 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
 
         public async Task<CreateIndexResponse> CreateTermPaperIndexAsync()
         {
-            var indexResponse = await _esClient.Indices.CreateAsync("termPaper_index", c => c
+            var indexResponse = await _esClient.Indices.CreateAsync("term-paper_index", c => c
                 .Settings(s => s
                     .Analysis(a => a
                         .Analyzers(ad => ad
@@ -55,7 +55,7 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
             );
 
 
-            await _esClient.Ingest.PutPipelineAsync("termPaper_pipeline", p => p
+            await _esClient.Ingest.PutPipelineAsync("term-paper_pipeline", p => p
                 .Processors(pr => pr
                     .Attachment<TermPaperElasticModel>(a => a
                       .Field(f => f.Content)
@@ -81,9 +81,10 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
             {
                 Path = filePath,
                 Content = base64File
-            }, i => i
-                .Index("termPaper_index")
-                .Pipeline("termPaper_pipeline")
+            },
+            i => i
+                .Index("term-paper_index")
+                .Pipeline("term-paper_pipeline")
                 .Timeout("5m")
             );
 

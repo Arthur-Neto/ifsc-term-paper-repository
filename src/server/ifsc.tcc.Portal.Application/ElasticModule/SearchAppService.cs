@@ -21,6 +21,7 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
         public async Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query)
         {
             var searchResponse = await _esClient.SearchAsync<TermPaperElasticModel>(s => s
+                .Index("term-paper_index")
                 .Query(q => q
                     .Match(m => m
                         .Field(a => a.Attachment.Content)
