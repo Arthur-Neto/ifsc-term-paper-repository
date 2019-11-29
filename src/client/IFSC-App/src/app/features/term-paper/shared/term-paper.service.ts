@@ -25,4 +25,8 @@ export class TermPaperService {
     public getAll(): Observable<any> {
         return this.http.get<any>(this.apiEndPoint).pipe();
     }
+
+    public search(query: string): Observable<any> {
+        return this.http.get<any>(`${ this.apiEndPoint }/search?query=${ query }`).pipe();
+    }
 }

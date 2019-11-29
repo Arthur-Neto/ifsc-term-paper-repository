@@ -29,4 +29,13 @@ export class HomeComponent implements OnInit {
                 this.termPaperFiles = result;
             });
     }
+
+    public search(query) {
+        this.termPaperService
+            .search(query)
+            .pipe(take(1))
+            .subscribe((result: any) => {
+                console.log(result);
+            });
+    }
 }

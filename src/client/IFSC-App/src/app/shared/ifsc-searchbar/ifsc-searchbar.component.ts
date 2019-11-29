@@ -1,7 +1,9 @@
 import {
     Component,
+    EventEmitter,
     Input,
     OnInit,
+    Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,32 +14,23 @@ import resources from '../../../assets/resources/resources-ptBR.json';
     templateUrl: './ifsc-searchbar.component.html',
     styleUrls: ['./ifsc-searchbar.component.scss']
 })
-export class IfscSearchbarComponent implements OnInit {
+export class IfscSearchbarComponent {
 
     public readonly resources = resources;
 
     @Input() newRouteUrl: string;
 
+    @Output() query = new EventEmitter<string>();
+
     constructor(
         private router: Router
     ) { }
-
-    public ngOnInit() {
-
-    }
 
     public onNew() {
         this.router.navigate([this.newRouteUrl]);
     }
 
     public onKeyUp(event: any) {
-        const query: string = event.target.value;
-
-        // this.fileManagerService
-        //     .getByQuery(query)
-        //     .pipe(take(1))
-        //     .subscribe((result: any) => {
-        //         this.termPaperFiles = result;
-        //     });
+        this.query.emit(event.target.value);
     }
 }

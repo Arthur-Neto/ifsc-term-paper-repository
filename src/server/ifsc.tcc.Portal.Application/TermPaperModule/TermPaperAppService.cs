@@ -6,6 +6,7 @@ using AutoMapper;
 using ifsc.tcc.Portal.Application.ElasticModule;
 using ifsc.tcc.Portal.Application.FileManagerModule;
 using ifsc.tcc.Portal.Application.FileManagerModule.Models;
+using ifsc.tcc.Portal.Application.TermPaperModule.Models;
 using ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands;
 using ifsc.tcc.Portal.Domain.AdvisorModule;
 using ifsc.tcc.Portal.Domain.AreaModule;
@@ -14,6 +15,7 @@ using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
+using Nest;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule
 {
@@ -21,6 +23,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
     {
         Task<bool> AddAsync(TermPaperAddCommand command);
         Task<IEnumerable<TermPaperFileModel>> GetAsync();
+        Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query);
     }
 
     public class TermPaperAppService : BaseAppService<ITermPaperRepository>, ITermPaperAppService
@@ -33,6 +36,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
 
         private readonly IIndexAppService _indexAppService;
         private readonly IFileManagerAppService _fileManagerAppService;
+        private readonly ISearchAppService _searchAppService;
 
         public TermPaperAppService(
             Lazy<IStudentRepository> studentRepository,
@@ -44,6 +48,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             Lazy<IMapper> mapper,
             IIndexAppService indexAppService,
             IFileManagerAppService fileManagerAppService,
+            ISearchAppService searchAppService,
             ITermPaperRepository repository)
             : base(unitOfWork, mapper, repository)
         {
@@ -53,6 +58,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             _courseRepository = courseRepository;
             _areaRepository = areaRepository;
 
+            _searchAppService = searchAppService;
             _indexAppService = indexAppService;
             _fileManagerAppService = fileManagerAppService;
         }
@@ -118,6 +124,11 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             }
 
             return listModel;
+        }
+
+        public async Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query)
+        {
+            return await _searchAppService.SearchAsync(query);
         }
 
         private async Task HandleCourse(TermPaperAddCommand command, TermPaper termPaper)

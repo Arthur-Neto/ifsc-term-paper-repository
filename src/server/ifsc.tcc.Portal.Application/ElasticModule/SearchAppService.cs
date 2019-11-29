@@ -6,7 +6,7 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
 {
     public interface ISearchAppService
     {
-        Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query);
+        Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query);
     }
 
     public class SearchAppService : ISearchAppService
@@ -18,7 +18,7 @@ namespace ifsc.tcc.Portal.Application.ElasticModule
             _esClient = esClient;
         }
 
-        public async Task<ISearchResponse<TermPaperElasticModel>> GetAsync(string query)
+        public async Task<ISearchResponse<TermPaperElasticModel>> SearchAsync(string query)
         {
             var searchResponse = await _esClient.SearchAsync<TermPaperElasticModel>(s => s
                 .Query(q => q
