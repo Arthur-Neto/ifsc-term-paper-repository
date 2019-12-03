@@ -1,0 +1,33 @@
+<h1>Login</h1>
+
+<form
+    [formGroup]="credentials"
+    (ngSubmit)="onSubmit(credentials)">
+
+    <div class="container">
+        <section class="row">
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="{{resources.labels.login}}" formControlName="login" required>
+
+                    <mat-error *ngIf="f.login.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.login.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="item">
+                <mat-form-field>
+                    <input matInput placeholder="{{resources.labels.password}}" formControlName="password" required>
+
+                    <mat-error *ngIf="f.password.errors?.required">{{resources.validators.thisFieldIsRequired}}</mat-error>
+                    <mat-error *ngIf="f.password.errors?.minlength">{{resources.validators.mustContainAtLeastFourChar}}</mat-error>
+                </mat-form-field>
+            </div>
+
+        </section>
+    </div>
+    <div class="submit-buttons">
+        <button mat-raised-button color="primary" type="submit">{{resources.labels.authenticate}}</button>
+        <mat-error *ngIf="showIncorrectLoginOrPassword">{{resources.validators.incorrectLoginOrPassword}}</mat-error>
+    </div>
+</form>

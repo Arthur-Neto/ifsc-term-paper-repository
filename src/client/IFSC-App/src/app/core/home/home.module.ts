@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { TermPaperModule } from '../../features/term-paper/term-paper.module';
 import { IfscSearchbarModule } from '../../shared/ifsc-searchbar/ifsc-searchbar.module';
-import { IfscTermPaperCardModule } from '../../shared/ifsc-term-paper-card/ifsc-term-paper-card.module';
+import { MaterialModule } from '../../shared/material/material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
@@ -12,8 +13,9 @@ import { HomeComponent } from './home.component';
     ],
     imports: [
         CommonModule,
+        MaterialModule,
+        TermPaperModule,
         IfscSearchbarModule,
-        IfscTermPaperCardModule,
         HomeRoutingModule,
     ],
     providers: []

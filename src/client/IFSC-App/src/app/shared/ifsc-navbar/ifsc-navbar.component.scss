@@ -19,4 +19,12 @@
         position: fixed;
         overflow: hidden;
     }
+
+    .ifsc-navbar__login {
+        background-color: rgb(0, 167, 0);
+        color: white;
+        position: fixed;
+        left: calc(95% - 24px);
+        height: 35px;
+    }
 }

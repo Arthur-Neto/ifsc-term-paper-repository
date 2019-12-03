@@ -30,6 +30,10 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Configurations.AdvisorModule
                 .IsUnicode(false)
                 .HasMaxLength(200)
                 .IsRequired();
+
+            builder.Property(x => x.Token)
+                .IsUnicode(false)
+                .HasMaxLength(200);
         }
     }
 }

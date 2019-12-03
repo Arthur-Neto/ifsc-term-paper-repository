@@ -64,7 +64,7 @@ export class TermPaperAddComponent implements OnInit {
         private fb: FormBuilder
     ) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.termPaper = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
             area: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],

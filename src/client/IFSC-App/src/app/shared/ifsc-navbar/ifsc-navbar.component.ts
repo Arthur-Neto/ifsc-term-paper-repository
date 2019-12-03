@@ -10,7 +10,11 @@ export class IfscNavbarComponent {
 
     constructor(private router: Router) { }
 
-    public onClick() {
+    public onLogoClick() {
         this.router.navigateByUrl('');
+    }
+
+    public onLogin() {
+        this.router.navigateByUrl('login');
     }
 }

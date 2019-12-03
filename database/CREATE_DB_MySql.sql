@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema TCCDB_IFSC
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `TCCDB_IFSC` ;
 
 -- -----------------------------------------------------
 -- Schema TCCDB_IFSC
@@ -111,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `TCCDB_IFSC`.`Advisors` (
   `Login` VARCHAR(50) NOT NULL,
   `Password` VARCHAR(200) NOT NULL,
   `Name` NVARCHAR(50) NOT NULL,
+  `Token` VARCHAR(200) NULL,
   PRIMARY KEY (`AdvisorID`),
   UNIQUE INDEX `Login_UNIQUE` (`Login` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -166,3 +168,13 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `TCCDB_IFSC`.`Advisors`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `TCCDB_IFSC`;
+INSERT INTO `TCCDB_IFSC`.`Advisors` (`AdvisorID`, `Login`, `Password`, `Name`, `Token`) VALUES (1, 'admin', 'admin', 'admin', NULL);
+
+COMMIT;
+

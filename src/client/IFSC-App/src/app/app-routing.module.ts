@@ -4,7 +4,8 @@ import {
     Routes,
 } from '@angular/router';
 
-import { HomeComponent } from './features/home/home.component';
+import { HomeComponent } from './core/home/home.component';
+import { LoginComponent } from './core/login/login.component';
 
 const routes: Routes = [
     {
@@ -15,7 +16,11 @@ const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
-        loadChildren: () => import('./features/home/home.module').then((mod) => mod.HomeModule)
+        loadChildren: () => import('./core/home/home.module').then((mod) => mod.HomeModule)
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
     },
     {
         path: 'term-paper',

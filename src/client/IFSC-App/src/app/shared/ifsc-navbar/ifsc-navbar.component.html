@@ -2,10 +2,15 @@
     <mat-toolbar-row>
         <button
             mat-button
-            aria-label="Home"
-            aria-hidden="true"
-            (click)="onClick()">
+            (click)="onLogoClick()">
             <mat-icon svgIcon="ifsc-logo"></mat-icon>
+        </button>
+
+        <button
+            mat-button
+            class="ifsc-navbar__login"
+            (click)="onLogin()">
+            Login
         </button>
     </mat-toolbar-row>
 </mat-toolbar>

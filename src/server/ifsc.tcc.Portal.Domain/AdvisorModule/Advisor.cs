@@ -6,9 +6,10 @@ namespace ifsc.tcc.Portal.Domain.AdvisorModule
 {
     public class Advisor : Entity
     {
+        public string Name { get; private set; }
         public string Login { get; private set; }
         public string Password { get; private set; }
-        public string Name { get; private set; }
+        public string Token { get; private set; }
 
         public virtual IEnumerable<TermPaperAdvisor> TermPaperAdvisors { get; private set; }
 
@@ -25,6 +26,16 @@ namespace ifsc.tcc.Portal.Domain.AdvisorModule
         {
             Login = login;
             Password = password;
+        }
+
+        public void SetPassword(string newPassword)
+        {
+            this.Password = newPassword;
+        }
+
+        public void SetToken(string token)
+        {
+            this.Token = token;
         }
     }
 }

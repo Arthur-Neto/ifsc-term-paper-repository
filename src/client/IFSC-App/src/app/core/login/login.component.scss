@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.row {
+    margin: 5%;
+    margin-right: 0px;
+    margin-top: 0;
+    text-align: left;
+    flex: 1;
+}
+
+.item {
+    .mat-form-field {
+        width: 15%;
+        margin-left: 40%;
+    }
+}
+
+h1 {
+    margin-left: 40%;
+    margin-top: 10%;
+    font-size: 32px;
+}
+
+.submit-buttons {
+    position: relative;
+    margin-left: 55%;
+}

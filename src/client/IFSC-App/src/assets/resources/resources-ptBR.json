@@ -4,7 +4,8 @@
         "mustContainAtLeastFourChar": "Deve conter pelo menos 4 caracteres",
         "shouldntContainMoreThanOneHundredChar": "Não deve ter mais que 100 caracteres",
         "shouldntContainMoreThanFiftyChar": "Não deve ter mais que 50 caracteres",
-        "shouldSelectFileWithCorrectFormat": "É necessario selecionar um arquivo no formato correto"
+        "shouldSelectFileWithCorrectFormat": "É necessario selecionar um arquivo no formato correto",
+        "incorrectLoginOrPassword": "Usuário ou senha incorretos"
     },
     "labels": {
         "keywordSelection": "Seleção de palavras-chaves",
@@ -23,6 +24,9 @@
         "searchBy": "Pesquisar por",
         "new": "Novo",
         "delete": "Deletar",
-        "download": "Download"
+        "download": "Download",
+        "login": "Nome de usuário",
+        "password": "Senha",
+        "authenticate": "Autenticar"
     }
 }

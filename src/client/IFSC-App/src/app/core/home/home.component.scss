@@ -1,0 +1,23 @@
+hr {
+    width: 100%;
+    position: fixed;
+    margin-top: 13%;
+}
+
+.home__actions {
+    position: relative;
+    margin-top: 10%;
+    padding-bottom: 2px;
+    float: right;
+
+    .mat-button {
+        margin-right: 1px;
+        padding: 2px;
+        line-height: 26px;
+
+        &::ng-deep .mat-button-focus-overlay {
+            background: transparent;
+            background-color: transparent;
+        }
+    }
+}

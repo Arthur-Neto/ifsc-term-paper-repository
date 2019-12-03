@@ -1,0 +1,18 @@
+<ifsc-searchbar (query)="search($event)"></ifsc-searchbar>
+
+<div class="home__actions" *ngIf="isAdmin">
+    <button
+        mat-button
+        disableRipple
+        (click)="onNew()">
+        <mat-icon svgIcon="add"></mat-icon>
+        {{resources.labels.new}}
+    </button>
+    <button mat-button disableRipple>
+        <mat-icon svgIcon="delete"></mat-icon>
+        {{resources.labels.delete}}
+    </button>
+</div>
+<hr>
+
+<term-paper-list [termPaperFiles]="termPaperFiles"></term-paper-list>

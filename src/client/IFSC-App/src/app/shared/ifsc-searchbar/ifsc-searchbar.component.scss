@@ -7,25 +7,3 @@
     padding: 0;
     left: calc(50% - (35% / 2));
 }
-
-hr {
-    width: 100%;
-}
-
-.ifsc-searchbar__actions {
-    position: relative;
-    margin-top: 10%;
-    padding-bottom: 2px;
-    float: right;
-
-    .mat-button {
-        margin-right: 1px;
-        padding: 2px;
-        line-height: 26px;
-
-        &::ng-deep .mat-button-focus-overlay {
-            background: transparent;
-            background-color: transparent;
-        }
-    }
-}
