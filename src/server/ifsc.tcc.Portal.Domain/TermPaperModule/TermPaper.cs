@@ -32,6 +32,11 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
             FileName = fileName;
         }
 
+        public void SetFileName(string fileName)
+        {
+            FileName = fileName;
+        }
+
         public void SetCourse(Course course)
         {
             Course = course;

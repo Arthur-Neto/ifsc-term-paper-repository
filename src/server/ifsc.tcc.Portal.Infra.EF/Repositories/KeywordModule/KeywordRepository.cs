@@ -13,7 +13,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories.KeywordModule
             : base(context)
         { }
 
-        public async Task<IEnumerable<Keyword>> GetKeywordsByValueList(IEnumerable<string> values)
+        public async Task<IEnumerable<Keyword>> GetKeywordsByValueListAsync(IEnumerable<string> values)
         {
             return await _entities.Where(kwd => values.Contains(kwd.Value)).ToListAsync();
         }

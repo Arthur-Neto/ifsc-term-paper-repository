@@ -4,7 +4,10 @@ import {
     OnInit,
 } from '@angular/core';
 
-import { take } from 'rxjs/operators';
+import {
+    take,
+    tap,
+} from 'rxjs/operators';
 
 import { TermPaperService } from '../shared/term-paper.service';
 
@@ -16,12 +19,17 @@ import { TermPaperService } from '../shared/term-paper.service';
 export class TermPaperListComponent implements OnInit {
     @Input() termPaperFiles: any;
 
+    public isLoading = false;
+
     constructor(private termPaperService: TermPaperService) { }
 
     public ngOnInit() {
+        this.isLoading = true;
         this.termPaperService
             .getAll()
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                tap(() => this.isLoading = false))
             .subscribe((result: any) => {
                 this.termPaperFiles = result;
             });

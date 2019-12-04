@@ -13,7 +13,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories.StudentModule
             : base(context)
         { }
 
-        public async Task<IList<Student>> GetByTermPaperID(int id)
+        public async Task<IList<Student>> GetByTermPaperIDAsync(int id)
         {
             return await _entities
                 .Where(x => x.TermPaperID == id).ToListAsync();

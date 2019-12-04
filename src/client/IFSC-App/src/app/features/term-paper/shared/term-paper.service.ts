@@ -9,7 +9,6 @@ import { environment } from '../../../../environments/environment';
     providedIn: 'root'
 })
 export class TermPaperService {
-
     private apiEndPoint: string;
 
     public constructor(

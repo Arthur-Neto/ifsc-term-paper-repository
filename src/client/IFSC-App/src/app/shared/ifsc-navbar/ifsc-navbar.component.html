@@ -8,9 +8,18 @@
 
         <button
             mat-button
+            *ngIf="!isLogged"
             class="ifsc-navbar__login"
             (click)="onLogin()">
             Login
+        </button>
+
+        <button
+            mat-button
+            *ngIf="isLogged"
+            class="ifsc-navbar__login"
+            (click)="onLogout()">
+            Logout
         </button>
     </mat-toolbar-row>
 </mat-toolbar>

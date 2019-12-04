@@ -8,6 +8,6 @@ namespace ifsc.tcc.Portal.Domain.KeywordModule
         : IGetRepository<Keyword>,
         IAddRepository<Keyword>
     {
-        Task<IEnumerable<Keyword>> GetKeywordsByValueList(IEnumerable<string> values);
+        Task<IEnumerable<Keyword>> GetKeywordsByValueListAsync(IEnumerable<string> values);
     }
 }

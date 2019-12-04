@@ -15,6 +15,7 @@ using ifsc.tcc.Portal.Domain.CourseModule;
 using ifsc.tcc.Portal.Domain.KeywordModule;
 using ifsc.tcc.Portal.Domain.StudentModule;
 using ifsc.tcc.Portal.Domain.TermPaperModule;
+using ifsc.tcc.Portal.Infra.Data.Crosscutting.Extensions;
 
 namespace ifsc.tcc.Portal.Application.TermPaperModule
 {
@@ -65,15 +66,18 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
         {
             var termPaper = Mapper.Value.Map<TermPaper>(command);
 
-            await HandleCourse(command, termPaper);
+            var fileName = command.File.FileName.RemoveDiacritics().ToLowerInvariant().Trim();
+            termPaper.SetFileName(fileName);
 
-            await HandleKeywords(command, termPaper);
+            await HandleCourseAsync(command, termPaper);
+
+            await HandleKeywordsAsync(command, termPaper);
 
             await Repository.AddAsync(termPaper);
 
-            await HandleAdvisors(command, termPaper);
+            await HandleAdvisorsAsync(command, termPaper);
 
-            await HandleStudents(command, termPaper);
+            await HandleStudentsAsync(command, termPaper);
 
             var isIndexed = await _indexAppService.Value.IsIndexCreatedAsync("term-paper_index");
             if (!isIndexed)
@@ -90,7 +94,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
         public async Task<IEnumerable<TermPaperFileModel>> GetAsync()
         {
             var fileNames = _fileManagerAppService.Value.GetAllTermPapers();
-            var listModel = await GetModelByFileNames(fileNames);
+            var listModel = await GetModelByFileNamesAsync(fileNames);
 
             return listModel;
         }
@@ -106,19 +110,19 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             }
 
             fileNames = fileNames.Select(Path.GetFileName).ToList();
-            var listModel = await GetModelByFileNames(fileNames);
+            var listModel = await GetModelByFileNamesAsync(fileNames);
 
             return listModel;
         }
 
-        private async Task<IEnumerable<TermPaperFileModel>> GetModelByFileNames(IEnumerable<string> fileNames)
+        private async Task<IEnumerable<TermPaperFileModel>> GetModelByFileNamesAsync(IEnumerable<string> fileNames)
         {
             var listModel = new List<TermPaperFileModel>();
 
-            foreach (var fileName in fileNames.AsParallel())
+            foreach (var fileName in fileNames)
             {
-                var termPaper = await Repository.GetByFileName(fileName);
-                var students = await _studentRepository.Value.GetByTermPaperID(termPaper.ID);
+                var termPaper = await Repository.GetByFileNameAsync(fileName);
+                var students = await _studentRepository.Value.GetByTermPaperIDAsync(termPaper.ID);
 
                 var model = new TermPaperFileModel()
                 {
@@ -158,9 +162,9 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             return listModel;
         }
 
-        private async Task HandleCourse(TermPaperAddCommand command, TermPaper termPaper)
+        private async Task HandleCourseAsync(TermPaperAddCommand command, TermPaper termPaper)
         {
-            var course = await _courseRepository.Value.GetByName(command.Course);
+            var course = await _courseRepository.Value.GetByNameAsync(command.Course);
 
             if (course == null)
             {
@@ -174,7 +178,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             termPaper.SetCourse(course);
         }
 
-        private async Task HandleAdvisors(TermPaperAddCommand command, TermPaper termPaper)
+        private async Task HandleAdvisorsAsync(TermPaperAddCommand command, TermPaper termPaper)
         {
             var advisor = new Advisor(command.Advisor.ToLower().Trim().Replace(" ", "."), "123", command.Advisor);
             await _advisorRepository.Value.AddAsync(advisor);
@@ -192,9 +196,9 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             }
         }
 
-        private async Task HandleKeywords(TermPaperAddCommand command, TermPaper termPaper)
+        private async Task HandleKeywordsAsync(TermPaperAddCommand command, TermPaper termPaper)
         {
-            var existingKeywords = await _keywordRepository.Value.GetKeywordsByValueList(command.Keywords);
+            var existingKeywords = await _keywordRepository.Value.GetKeywordsByValueListAsync(command.Keywords);
             var newKeywords = command.Keywords.Except(existingKeywords.Select(ek => ek.Value));
 
             foreach (var keyword in existingKeywords)
@@ -207,7 +211,7 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule
             }
         }
 
-        private async Task HandleStudents(TermPaperAddCommand command, TermPaper termPaper)
+        private async Task HandleStudentsAsync(TermPaperAddCommand command, TermPaper termPaper)
         {
             var studentA = new Student(command.Student1);
             studentA.SetTermPaper(termPaper);

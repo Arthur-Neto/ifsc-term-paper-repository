@@ -9,7 +9,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { take } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {
+    take,
+    tap,
+} from 'rxjs/operators';
 
 import resources from '../../../assets/resources/resources-ptBR.json';
 import { LoginService } from './shared/login.service.js';
@@ -22,6 +26,7 @@ import { LoginService } from './shared/login.service.js';
 export class LoginComponent implements OnInit {
     public readonly resources = resources;
 
+    public isLoading = false;
     public showIncorrectLoginOrPassword = false;
     public credentials: FormGroup;
 
@@ -45,6 +50,7 @@ export class LoginComponent implements OnInit {
     }
 
     public onSubmit(credentials: FormGroup) {
+        this.isLoading = true;
         const command: any = {
             login: credentials.value.login,
             password: credentials.value.password
@@ -52,14 +58,20 @@ export class LoginComponent implements OnInit {
 
         this.loginService
             .login(command)
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                tap(() => this.isLoading = false))
             .subscribe(
                 (data) => {
                     if (data === null) {
                         this.showIncorrectLoginOrPassword = true;
                         return;
                     }
-                    this.router.navigate(['/']);
+                    this.router
+                        .navigate(['/'])
+                        .then(() => {
+                            window.location.reload();
+                        });
                 },
                 (error) => {
                     console.log(error);

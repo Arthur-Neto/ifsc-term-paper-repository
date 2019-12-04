@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import {
     map,
     take,
+    tap,
 } from 'rxjs/operators';
 
 import resources from '../../../../assets/resources/resources-ptBR.json';
@@ -36,7 +37,6 @@ import { TermPaperService } from '../shared/term-paper.service.js';
     styleUrls: ['./term-paper-add.component.scss']
 })
 export class TermPaperAddComponent implements OnInit {
-
     public readonly MIN_DATE = new Date(2010, 1, 1);
     public readonly MAX_DATE = new Date();
     public readonly resources = resources;
@@ -52,6 +52,7 @@ export class TermPaperAddComponent implements OnInit {
     public keywords: string[] = [];
     public allKeywords: string[] = ['keyword1', 'keyword2', 'keyword3'];
     public filteredKeywords: Observable<string[]>;
+    public isLoading = false;
 
     get f() { return this.termPaper.controls; }
 
@@ -152,6 +153,7 @@ export class TermPaperAddComponent implements OnInit {
             this.fileUploadedShowError = false;
         }
 
+        this.isLoading = true;
         const fileToUpload = this.file as File;
         const formData = new FormData();
         formData.append('title', termPaper.value.title);
@@ -165,11 +167,12 @@ export class TermPaperAddComponent implements OnInit {
         formData.append('student2', termPaper.value.student2);
         formData.append('keywords', termPaper.value.keywords);
         formData.append('file', fileToUpload, fileToUpload.name);
-        formData.append('fileName', fileToUpload.name);
 
         this.termPaperService
             .add(formData)
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                tap(() => this.isLoading = false))
             .subscribe((event) => {
                 if (event.type === HttpEventType.UploadProgress) {
                     this.progress = Math.round(100 * event.loaded / event.total);

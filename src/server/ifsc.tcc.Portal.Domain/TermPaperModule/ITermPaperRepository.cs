@@ -7,6 +7,6 @@ namespace ifsc.tcc.Portal.Domain.TermPaperModule
         : IAddRepository<TermPaper>,
         IGetRepository<TermPaper>
     {
-        Task<TermPaper> GetByFileName(string fileName);
+        Task<TermPaper> GetByFileNameAsync(string fileName);
     }
 }

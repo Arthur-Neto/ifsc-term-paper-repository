@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ifsc.tcc.Portal.Application.FileManagerModule;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,25 +16,6 @@ namespace ifsc.tcc.Portal.Api.Controllers
             IFileManagerAppService fileManagerAppService)
         {
             _fileManagerAppService = fileManagerAppService;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadTermPaper()
-        {
-            var file = Request.Form.Files[0];
-
-            try
-            {
-                await _fileManagerAppService.UploadTermPaperAsync(file);
-
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                BadRequest(ex);
-
-                return null;
-            }
         }
 
         [AllowAnonymous]

@@ -12,7 +12,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories.CourseModule
             : base(context)
         { }
 
-        public async Task<Course> GetByName(string name)
+        public async Task<Course> GetByNameAsync(string name)
         {
             return await _entities
                 .Include(x => x.Area)

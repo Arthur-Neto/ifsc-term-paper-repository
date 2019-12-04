@@ -43,4 +43,10 @@ export class LoginService {
             })
         );
     }
+
+    public logout(): void {
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+        window.location.reload();
+    }
 }

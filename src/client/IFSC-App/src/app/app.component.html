@@ -1,5 +1,5 @@
 <header class="header">
-    <ifsc-navbar></ifsc-navbar>
+    <ifsc-navbar [isLogged]="isLogged" (logout)="onLogout()"></ifsc-navbar>
 </header>
 
 <section class="content">

@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +12,9 @@ import { Router } from '@angular/router';
     styleUrls: ['./ifsc-navbar.component.scss']
 })
 export class IfscNavbarComponent {
+    @Input() isLogged: boolean;
+
+    @Output() logout = new EventEmitter<any>();
 
     constructor(private router: Router) { }
 
@@ -16,5 +24,9 @@ export class IfscNavbarComponent {
 
     public onLogin() {
         this.router.navigateByUrl('login');
+    }
+
+    public onLogout() {
+        this.logout.emit();
     }
 }

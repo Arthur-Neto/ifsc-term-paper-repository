@@ -1,12 +1,13 @@
 .term-paper-card {
     display: flex;
-    flex-wrap: wrap;
+    position: absolute;
+    margin-top: 14%;
 
     &__content {
         align-self: flex-start;
         flex: 0 0 auto;
         width: 250px;
-        margin-left: 1%;
+        margin-left: 5%;
         margin-bottom: 1.5%;
         max-height: 300px;
     }

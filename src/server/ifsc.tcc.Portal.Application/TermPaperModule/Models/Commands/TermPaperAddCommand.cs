@@ -16,7 +16,6 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
         public string CoAdvisor { get; set; }
         public string Area { get; set; }
         public string Course { get; set; }
-        public string FileName { get; set; }
         public IFormFile File { get; set; }
         public IEnumerable<string> Keywords { get; set; }
     }
@@ -58,10 +57,6 @@ namespace ifsc.tcc.Portal.Application.TermPaperModule.Models.Commands
                 .Length(4, 50);
 
             RuleFor(x => x.Course)
-                .NotEmpty()
-                .Length(4, 50);
-
-            RuleFor(x => x.FileName)
                 .NotEmpty()
                 .Length(4, 50);
 

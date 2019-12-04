@@ -12,7 +12,6 @@ import resources from '../../../assets/resources/resources-ptBR.json';
     styleUrls: ['./ifsc-term-paper-card.component.scss']
 })
 export class IfscTermPaperCardComponent implements OnInit {
-
     public readonly resources = resources;
 
     @Input() termPaperFiles: any;

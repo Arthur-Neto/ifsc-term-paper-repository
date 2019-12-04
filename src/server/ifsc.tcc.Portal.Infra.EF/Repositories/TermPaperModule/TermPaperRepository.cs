@@ -12,7 +12,7 @@ namespace ifsc.tcc.Portal.Infra.Data.EF.Repositories.TermPaperModule
             : base(context)
         { }
 
-        public async Task<TermPaper> GetByFileName(string fileName)
+        public async Task<TermPaper> GetByFileNameAsync(string fileName)
         {
             return await _entities
                 .Include(x => x.TermPaperAdvisors)

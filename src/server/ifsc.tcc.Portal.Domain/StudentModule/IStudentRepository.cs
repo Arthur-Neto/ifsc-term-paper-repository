@@ -8,6 +8,6 @@ namespace ifsc.tcc.Portal.Domain.StudentModule
         : IGetRepository<Student>,
         IAddRepository<Student>
     {
-        Task<IList<Student>> GetByTermPaperID(int id);
+        Task<IList<Student>> GetByTermPaperIDAsync(int id);
     }
 }

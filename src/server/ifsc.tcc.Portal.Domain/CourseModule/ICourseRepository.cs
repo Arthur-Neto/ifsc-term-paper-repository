@@ -7,6 +7,6 @@ namespace ifsc.tcc.Portal.Domain.CourseModule
         : IGetRepository<Course>,
         IAddRepository<Course>
     {
-        Task<Course> GetByName(string name);
+        Task<Course> GetByNameAsync(string name);
     }
 }

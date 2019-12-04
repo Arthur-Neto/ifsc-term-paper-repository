@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { take } from 'rxjs/operators';
+import {
+    take,
+    tap,
+} from 'rxjs/operators';
 
 import resources from '../../../assets/resources/resources-ptBR.json';
 import { TermPaperService } from '../../features/term-paper/shared/term-paper.service';
@@ -19,8 +22,13 @@ export class HomeComponent implements OnInit {
     public readonly resources = resources;
 
     public termPaperFiles: any;
+    public isLoading = false;
 
     private currentUser: any;
+
+    get isLogged() {
+        return this.currentUser !== null;
+    }
 
     constructor(
         private termPaperService: TermPaperService,
@@ -39,10 +47,6 @@ export class HomeComponent implements OnInit {
             .subscribe((result: any) => {
                 this.termPaperFiles = result;
             });
-    }
-
-    get isAdmin() {
-        return this.currentUser;
     }
 
     public onNew() {

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using ifsc.tcc.Portal.Infra.Data.Crosscutting.Extensions;
 using Microsoft.AspNetCore.Http;
 using Nest;
 
@@ -47,6 +48,7 @@ namespace ifsc.tcc.Portal.Application.FileManagerModule
                 if (file.Length > 0)
                 {
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    fileName = fileName.RemoveDiacritics().ToLowerInvariant().Trim();
 
                     fullPath = Path.Combine(newPath, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))

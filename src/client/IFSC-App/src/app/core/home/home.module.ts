@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { TermPaperModule } from '../../features/term-paper/term-paper.module';
 import { IfscSearchbarModule } from '../../shared/ifsc-searchbar/ifsc-searchbar.module';
+import { IfscSpinnerModule } from '../../shared/ifsc-spinner/ifsc-spinner.module';
 import { MaterialModule } from '../../shared/material/material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -16,6 +17,7 @@ import { HomeComponent } from './home.component';
         MaterialModule,
         TermPaperModule,
         IfscSearchbarModule,
+        IfscSpinnerModule,
         HomeRoutingModule,
     ],
     providers: []

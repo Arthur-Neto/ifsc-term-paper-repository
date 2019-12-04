@@ -1,6 +1,5 @@
 <ifsc-searchbar (query)="search($event)"></ifsc-searchbar>
-
-<div class="home__actions" *ngIf="isAdmin">
+<div class="home__actions" *ngIf="isLogged">
     <button
         mat-button
         disableRipple
@@ -14,5 +13,5 @@
     </button>
 </div>
 <hr>
-
 <term-paper-list [termPaperFiles]="termPaperFiles"></term-paper-list>
+<ifsc-spinner [isLoading]="isLoading"></ifsc-spinner>
