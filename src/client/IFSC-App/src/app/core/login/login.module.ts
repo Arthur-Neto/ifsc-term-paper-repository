@@ -5,6 +5,7 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 
+import { IfscSpinnerModule } from '../../shared/ifsc-spinner/ifsc-spinner.module';
 import { MaterialModule } from '../../shared/material/material.module';
 import { LoginComponent } from './login.component';
 
@@ -17,6 +18,7 @@ import { LoginComponent } from './login.component';
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        IfscSpinnerModule,
     ]
 })
 export class LoginModule { }

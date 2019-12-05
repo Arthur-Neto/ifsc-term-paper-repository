@@ -14,14 +14,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './core/home/home.module';
 import { JwtInterceptor } from './core/jwt-interceptor/jwt-interceptor';
-import { LoginComponent } from './core/login/login.component';
 import { MaterialModule } from './shared/material/material.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
