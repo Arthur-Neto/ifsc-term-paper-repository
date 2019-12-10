@@ -45,6 +45,7 @@
         "karma-jasmine-html-reporter": "^1.4.2",
         "protractor": "~5.4.2",
         "rxjs-tslint": "^0.1.7",
+        "serialize-javascript": "^2.1.2",
         "ts-node": "~8.5.4",
         "tslint": "~5.20.1",
         "typescript": "~3.5.3"
